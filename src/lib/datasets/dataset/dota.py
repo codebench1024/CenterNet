@@ -10,55 +10,27 @@ import os
 
 import torch.utils.data as data
 
-class COCO(data.Dataset):
-  num_classes = 80
-  default_resolution = [512, 512]
+class DOTA(data.Dataset):
+  num_classes = 16
+  default_resolution = [1024, 1024]
   mean = np.array([0.40789654, 0.44719302, 0.47026115],
                    dtype=np.float32).reshape(1, 1, 3)
   std  = np.array([0.28863828, 0.27408164, 0.27809835],
                    dtype=np.float32).reshape(1, 1, 3)
 
   def __init__(self, opt, split):
-    super(COCO, self).__init__()
-    self.data_dir = os.path.join(opt.data_dir, 'coco')
-    self.img_dir = os.path.join(self.data_dir, '{}2014'.format(split))
-    if split == 'test':
-      self.annot_path = os.path.join(
-          self.data_dir, 'annotations', 
-          'image_info_test-dev2014.json').format(split)
-    else:
-      if opt.task == 'exdet':
-        self.annot_path = os.path.join(
-          self.data_dir, 'annotations', 
-          'instances_extreme_{}2014.json').format(split)
-      else:
-        self.annot_path = os.path.join(
-          self.data_dir, 'annotations', 
-          'instances_{}2014.json').format(split)
+    super(DOTA, self).__init__()
+    self.data_dir = os.path.join(opt.data_dir, 'dota')
+    self.img_dir = os.path.join(self.data_dir, '{}'.format(split))
+    #self.annot_path = os.path.join(self.data_dir, "DOTA_train.json")
+
+    self.annot_path = os.path.join(self.data_dir, 'DOTA_{}.json').format(split)
+
     self.max_objs = 128
-    self.class_name = [
-      '__background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
-      'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
-      'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse',
-      'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack',
-      'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis',
-      'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove',
-      'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass',
-      'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich',
-      'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake',
-      'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv',
-      'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave',
-      'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
-      'scissors', 'teddy bear', 'hair drier', 'toothbrush']
-    self._valid_ids = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 
-      14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 
-      24, 25, 27, 28, 31, 32, 33, 34, 35, 36, 
-      37, 38, 39, 40, 41, 42, 43, 44, 46, 47, 
-      48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 
-      58, 59, 60, 61, 62, 63, 64, 65, 67, 70, 
-      72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 
-      82, 84, 85, 86, 87, 88, 89, 90]
+    self.class_name = ['__background__', 'plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle',
+                        'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',
+                        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
+    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
     self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}
     self.voc_color = [(v // 32 * 64 + 64, (v // 8) % 4 * 64, v % 8 * 32) \
                       for v in range(1, self.num_classes + 1)]
@@ -76,7 +48,7 @@ class COCO(data.Dataset):
     self.split = split
     self.opt = opt
 
-    print('==> initializing coco 2017 {} data.'.format(split))
+    print('==> initializing dota {} data.'.format(split))
     self.coco = coco.COCO(self.annot_path)
     self.images = self.coco.getImgIds()
     self.num_samples = len(self.images)
@@ -117,13 +89,51 @@ class COCO(data.Dataset):
     json.dump(self.convert_eval_format(results), 
                 open('{}/results.json'.format(save_dir), 'w'))
   
+
+  def save_results_dota(self, results, save_dir):
+    detections = []
+    for image_id in results:
+      for cls_ind in results[image_id]:
+        category_id = self._valid_ids[cls_ind - 1]
+        for bbox in results[image_id][cls_ind]:
+          #bbox[2] -= bbox[0]
+          #bbox[3] -= bbox[1]
+          score = bbox[4]
+          bbox_out = list(map(self._to_float, bbox[0:4]))
+          image_name = self.coco.loadImgs(ids=[image_id])[0]['file_name']
+
+          detection = {
+            "image_id": int(image_id),
+            "image_name": image_name,
+            "category_id": int(category_id),
+            "category_name": self.class_name[category_id],
+            "bbox": bbox_out,
+            "score": float("{:.4f}".format(score))
+          }
+          #if len(bbox) > 5:
+          #  extreme_points = list(map(self._to_float, bbox[5:13]))
+          #  detection["extreme_points"] = extreme_points
+          detections.append(detection)
+    if not os.path.exists(os.path.join(save_dir, 'result_dota')):
+      os.makedirs(os.path.join(save_dir, 'result_dota'))
+    for cat_id in range(1, self.num_classes+1):
+      with open('%s/result_dota/Task2_%s.txt' % (save_dir,self.class_name[cat_id]), 'w') as file_writer:
+        for detect_temp in detections:
+          if detect_temp['category_id'] == cat_id:
+            file_writer.write("%s %s %s %s %s %s\n" % (detect_temp['image_name'].split('.')[0], detect_temp['score'],
+                                detect_temp['bbox'][0], detect_temp['bbox'][1], detect_temp['bbox'][2], detect_temp['bbox'][3]))
+    return detections
+
+
   def run_eval(self, results, save_dir):
     # result_json = os.path.join(save_dir, "results.json")
     # detections  = self.convert_eval_format(results)
     # json.dump(detections, open(result_json, "w"))
-    self.save_results(results, save_dir)
+    self.save_results_dota(results, save_dir)
+    '''
     coco_dets = self.coco.loadRes('{}/results.json'.format(save_dir))
     coco_eval = COCOeval(self.coco, coco_dets, "bbox")
     coco_eval.evaluate()
     coco_eval.accumulate()
     coco_eval.summarize()
+    '''
