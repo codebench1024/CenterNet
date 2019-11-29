@@ -84,6 +84,7 @@ class CTDetDataset(data.Dataset):
 
     hm = np.zeros((num_classes, output_h, output_w), dtype=np.float32)
     wh = np.zeros((self.max_objs, 2), dtype=np.float32)
+    theta = np.zeros((self.max_objs, 2), dtype=np.float32)
     dense_wh = np.zeros((2, output_h, output_w), dtype=np.float32)
     reg = np.zeros((self.max_objs, 2), dtype=np.float32)
     ind = np.zeros((self.max_objs), dtype=np.int64)
@@ -99,22 +100,26 @@ class CTDetDataset(data.Dataset):
       ann = anns[k]
       bbox = self._coco_box_to_bbox(ann['bbox'])
       cls_id = int(self.cat_ids[ann['category_id']])
-      if flipped:
-        bbox[[0, 2]] = width - bbox[[2, 0]] - 1
-      bbox[:2] = affine_transform(bbox[:2], trans_output)
-      bbox[2:] = affine_transform(bbox[2:], trans_output)
-      bbox[[0, 2]] = np.clip(bbox[[0, 2]], 0, output_w - 1)
-      bbox[[1, 3]] = np.clip(bbox[[1, 3]], 0, output_h - 1)
-      h, w = bbox[3] - bbox[1], bbox[2] - bbox[0]
+      # if flipped:
+      #   bbox[[0, 2]] = width - bbox[[2, 0]] - 1
+      # bbox[:2] = affine_transform(bbox[:2], trans_output)
+      # bbox[2:] = affine_transform(bbox[2:], trans_output)
+      # bbox[[0, 2]] = np.clip(bbox[[0, 2]], 0, output_w - 1)
+      # bbox[[1, 3]] = np.clip(bbox[[1, 3]], 0, output_h - 1)
+      # h, w = bbox[3] - bbox[1], bbox[2] - bbox[0]
+      ctx_kth, cty_kth, w_kth, h_kth, theta_kth = self.polygonToRotRectangle(bbox)
+      h, w = h_kth, w_kth
       if h > 0 and w > 0:
         radius = gaussian_radius((math.ceil(h), math.ceil(w)))
         radius = max(0, int(radius))
         radius = self.opt.hm_gauss if self.opt.mse_loss else radius
         ct = np.array(
-          [(bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2], dtype=np.float32)
+          [(bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2], dtype=np.float32)  # ct means center point of poly
+        ct = np.array([ctx_kth, cty_kth], dtype=np.float32)
         ct_int = ct.astype(np.int32)
         draw_gaussian(hm[cls_id], ct_int, radius)
         wh[k] = 1. * w, 1. * h
+        theta[k] = theta_kth
         ind[k] = ct_int[1] * output_w + ct_int[0]
         reg[k] = ct - ct_int
         reg_mask[k] = 1
@@ -125,7 +130,7 @@ class CTDetDataset(data.Dataset):
         gt_det.append([ct[0] - w / 2, ct[1] - h / 2, 
                        ct[0] + w / 2, ct[1] + h / 2, 1, cls_id])
     
-    ret = {'input': inp, 'hm': hm, 'reg_mask': reg_mask, 'ind': ind, 'wh': wh}
+    ret = {'input': inp, 'hm': hm, 'reg_mask': reg_mask, 'ind': ind, 'wh': wh, 'theta': theta}
     if self.opt.dense_wh:
       hm_a = hm.max(axis=0, keepdims=True)
       dense_wh_mask = np.concatenate([hm_a, hm_a], axis=0)
@@ -142,3 +147,35 @@ class CTDetDataset(data.Dataset):
       meta = {'c': c, 's': s, 'gt_det': gt_det, 'img_id': img_id}
       ret['meta'] = meta
     return ret
+
+  def polygonToRotRectangle(bbox):
+    """
+    this function is come from DOTA_devkit/dota_util.py
+    :param bbox: The polygon stored in format [x1, y1, x2, y2, x3, y3, x4, y4]
+    :return: Rotated Rectangle in format [cx, cy, w, h, theta]
+    """
+    bbox = np.array(bbox, dtype=np.float32)
+    bbox = np.reshape(bbox, newshape=(2, 4), order='F')
+    angle = math.atan2(-(bbox[0, 1] - bbox[0, 0]), bbox[1, 1] - bbox[1, 0])
+
+    center = [[0], [0]]
+
+    for i in range(4):
+      center[0] += bbox[0, i]
+      center[1] += bbox[1, i]
+
+    center = np.array(center, dtype=np.float32) / 4.0
+
+    R = np.array([[math.cos(angle), -math.sin(angle)], [math.sin(angle), math.cos(angle)]], dtype=np.float32)
+
+    normalized = np.matmul(R.transpose(), bbox - center)
+
+    xmin = np.min(normalized[0, :])
+    xmax = np.max(normalized[0, :])
+    ymin = np.min(normalized[1, :])
+    ymax = np.max(normalized[1, :])
+
+    w = xmax - xmin + 1
+    h = ymax - ymin + 1
+
+    return [float(center[0]), float(center[1]), w, h, angle]
