@@ -5,6 +5,8 @@ from __future__ import print_function
 import torch
 import torch.nn as nn
 from .utils import _gather_feat, _tranpose_and_gather_feat
+import numpy as np
+import math
 
 def _nms(heat, kernel=3):
     pad = (kernel - 1) // 2
@@ -461,7 +463,7 @@ def ddd_decode(heat, rot, depth, dim, wh=None, reg=None, K=40):
       
     return detections
 
-def ctdet_decode(heat, wh, reg=None, cat_spec_wh=False, K=100):
+def ctdet_decode(heat, wh, reg=None, theta=None, cat_spec_wh=False, K=100):
     batch, cat, height, width = heat.size()
 
     # heat = torch.sigmoid(heat)
@@ -478,20 +480,32 @@ def ctdet_decode(heat, wh, reg=None, cat_spec_wh=False, K=100):
       xs = xs.view(batch, K, 1) + 0.5
       ys = ys.view(batch, K, 1) + 0.5
     wh = _tranpose_and_gather_feat(wh, inds)
+    theta = _tranpose_and_gather_feat(theta, inds)
     if cat_spec_wh:
       wh = wh.view(batch, K, cat, 2)
       clses_ind = clses.view(batch, K, 1, 1).expand(batch, K, 1, 2).long()
       wh = wh.gather(2, clses_ind).view(batch, K, 2)
     else:
       wh = wh.view(batch, K, 2)
+    theta = theta.view(batch, K, 1)
     clses  = clses.view(batch, K, 1).float()
     scores = scores.view(batch, K, 1)
-    bboxes = torch.cat([xs - wh[..., 0:1] / 2, 
-                        ys - wh[..., 1:2] / 2,
-                        xs + wh[..., 0:1] / 2, 
-                        ys + wh[..., 1:2] / 2], dim=2)
+    # bboxes = torch.cat([xs - wh[..., 0:1] / 2,
+    #                     ys - wh[..., 1:2] / 2,
+    #                     xs + wh[..., 0:1] / 2,
+    #                     ys + wh[..., 1:2] / 2], dim=2)
+    # detections = torch.cat([bboxes, scores, clses], dim=2)
+    theta_cos = torch.cat((torch.cos(theta), -torch.sin(theta), torch.sin(theta), torch.cos(theta)), 2)
+    theta_cos = theta_cos.view(batch, K, 2, 2)
+    wh4points = torch.cat((-wh[...,0:1]/2, -wh[...,1:2]/2, wh[...,0:1]/2, -wh[...,1:2]/2, wh[...,0:1]/2, wh[...,1:2]/2, -wh[...,0:1]/2, wh[...,1:2]/2),2)
+    wh4points = wh4points.view(batch,K,4,2)
+    wh4points = wh4points.permute(0,1,3,2)
+    bboxes = torch.matmul(theta_cos, wh4points)  # (batch, K, 2, 4)
+    bboxes = bboxes.permute(0,1,3,2).contiguous().view(batch, K, 8) # (batch, K, 8) ---(x1,y1,x2,y2,x3,y3,x4,y4)
+    centerpoint = torch.cat((xs,ys,xs,ys,xs,ys,xs,ys), dim=2)
+    bboxes = torch.add(bboxes, centerpoint)   # add (xs, ys),   get abs location, not relative location
     detections = torch.cat([bboxes, scores, clses], dim=2)
-      
+
     return detections
 
 def multi_pose_decode(

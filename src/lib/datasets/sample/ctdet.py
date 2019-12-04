@@ -20,6 +20,11 @@ class CTDetDataset(data.Dataset):
                     dtype=np.float32)
     return bbox
 
+  def _coco_box_to_bbox_8(self, box):
+    bbox = np.array([box[0], box[1], box[2], box[3], box[4], box[5], box[6], box[7]],
+                    dtype=np.float32)
+    return bbox
+
   def _get_border(self, border, size):
     i = 1
     while size - border // i <= border // i:
@@ -84,7 +89,7 @@ class CTDetDataset(data.Dataset):
 
     hm = np.zeros((num_classes, output_h, output_w), dtype=np.float32)
     wh = np.zeros((self.max_objs, 2), dtype=np.float32)
-    theta = np.zeros((self.max_objs, 2), dtype=np.float32)
+    theta = np.zeros((self.max_objs, 1), dtype=np.float32)
     dense_wh = np.zeros((2, output_h, output_w), dtype=np.float32)
     reg = np.zeros((self.max_objs, 2), dtype=np.float32)
     ind = np.zeros((self.max_objs), dtype=np.int64)
@@ -98,7 +103,7 @@ class CTDetDataset(data.Dataset):
     gt_det = []
     for k in range(num_objs):
       ann = anns[k]
-      bbox = self._coco_box_to_bbox(ann['bbox'])
+      bbox = self._coco_box_to_bbox_8(ann['bbox'])
       cls_id = int(self.cat_ids[ann['category_id']])
       # if flipped:
       #   bbox[[0, 2]] = width - bbox[[2, 0]] - 1
@@ -113,8 +118,7 @@ class CTDetDataset(data.Dataset):
         radius = gaussian_radius((math.ceil(h), math.ceil(w)))
         radius = max(0, int(radius))
         radius = self.opt.hm_gauss if self.opt.mse_loss else radius
-        ct = np.array(
-          [(bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2], dtype=np.float32)  # ct means center point of poly
+        # ct = np.array([(bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2], dtype=np.float32)  # ct means center point of poly
         ct = np.array([ctx_kth, cty_kth], dtype=np.float32)
         ct_int = ct.astype(np.int32)
         draw_gaussian(hm[cls_id], ct_int, radius)
@@ -148,7 +152,7 @@ class CTDetDataset(data.Dataset):
       ret['meta'] = meta
     return ret
 
-  def polygonToRotRectangle(bbox):
+  def polygonToRotRectangle(self, bbox):
     """
     this function is come from DOTA_devkit/dota_util.py
     :param bbox: The polygon stored in format [x1, y1, x2, y2, x3, y3, x4, y4]

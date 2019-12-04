@@ -13,8 +13,8 @@ import torch.utils.data as data
 class DOTA(data.Dataset):
   num_classes = 16
   default_resolution = [1024, 1024]
-  mean = np.array([0.40789654, 0.44719302, 0.47026115],
-                   dtype=np.float32).reshape(1, 1, 3)
+  mean = np.array([0.40789654, 0.44719302, 0.47026115],  #[103.06, 115.9 , 123.15]
+                     dtype=np.float32).reshape(1, 1, 3)
   std  = np.array([0.28863828, 0.27408164, 0.27809835],
                    dtype=np.float32).reshape(1, 1, 3)
 
@@ -98,8 +98,8 @@ class DOTA(data.Dataset):
         for bbox in results[image_id][cls_ind]:
           #bbox[2] -= bbox[0]
           #bbox[3] -= bbox[1]
-          score = bbox[4]
-          bbox_out = list(map(self._to_float, bbox[0:4]))
+          score = bbox[8]
+          bbox_out = list(map(self._to_float, bbox[0:8]))
           image_name = self.coco.loadImgs(ids=[image_id])[0]['file_name']
 
           detection = {
@@ -117,11 +117,12 @@ class DOTA(data.Dataset):
     if not os.path.exists(os.path.join(save_dir, 'result_dota')):
       os.makedirs(os.path.join(save_dir, 'result_dota'))
     for cat_id in range(1, self.num_classes+1):
-      with open('%s/result_dota/Task2_%s.txt' % (save_dir,self.class_name[cat_id]), 'w') as file_writer:
+      with open('%s/result_dota/Task1_%s.txt' % (save_dir,self.class_name[cat_id]), 'w') as file_writer:
         for detect_temp in detections:
           if detect_temp['category_id'] == cat_id:
-            file_writer.write("%s %s %s %s %s %s\n" % (detect_temp['image_name'].split('.')[0], detect_temp['score'],
-                                detect_temp['bbox'][0], detect_temp['bbox'][1], detect_temp['bbox'][2], detect_temp['bbox'][3]))
+            file_writer.write("%s %s %s %s %s %s %s %s %s %s\n" % (detect_temp['image_name'].split('.')[0], detect_temp['score'],
+                                detect_temp['bbox'][0], detect_temp['bbox'][1], detect_temp['bbox'][2], detect_temp['bbox'][3],
+                                            detect_temp['bbox'][4], detect_temp['bbox'][5], detect_temp['bbox'][6], detect_temp['bbox'][7]))
     return detections
 
 

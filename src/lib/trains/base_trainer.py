@@ -8,7 +8,6 @@ from progress.bar import Bar
 from models.data_parallel import DataParallel
 from utils.utils import AverageMeter
 
-
 class ModleWithLoss(torch.nn.Module):
   def __init__(self, model, loss):
     super(ModleWithLoss, self).__init__()
@@ -68,6 +67,7 @@ class BaseTrainer(object):
           batch[k] = batch[k].to(device=opt.device, non_blocking=True)    
       output, loss, loss_stats = model_with_loss(batch)
       loss = loss.mean()
+
       if phase == 'train':
         self.optimizer.zero_grad()
         loss.backward()
@@ -90,7 +90,7 @@ class BaseTrainer(object):
           print('{}/{}| {}'.format(opt.task, opt.exp_id, Bar.suffix)) 
       else:
         bar.next()
-      
+
       if opt.debug > 0:
         self.debug(batch, output, iter_id)
       

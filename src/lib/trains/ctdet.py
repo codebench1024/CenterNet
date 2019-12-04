@@ -27,7 +27,7 @@ class CtdetLoss(torch.nn.Module):
 
   def forward(self, outputs, batch):
     opt = self.opt
-    hm_loss, wh_loss, off_loss = 0, 0, 0
+    hm_loss, wh_loss, off_loss, theta_loss = 0, 0, 0, 0
     for s in range(opt.num_stacks):
       output = outputs[s]
       if not opt.mse_loss:
@@ -62,15 +62,20 @@ class CtdetLoss(torch.nn.Module):
           wh_loss += self.crit_reg(
             output['wh'], batch['reg_mask'],
             batch['ind'], batch['wh']) / opt.num_stacks
-      
+          print("this is wh loss, output[wh]:" + str(output['wh'].size()) + " batch[reg_mask]:" + str(
+            batch['reg_mask'].size()) + " batch[ind]:" + str(batch['ind'].size()) + " batch[wh]:" + str(
+            batch['wh'].size()))
+
       if opt.reg_offset and opt.off_weight > 0:
         off_loss += self.crit_reg(output['reg'], batch['reg_mask'],
                              batch['ind'], batch['reg']) / opt.num_stacks
-        
+      print("this is theta loss, output[theta]:" + str(output['theta'].size()) + " batch[reg_mask]:" + str(batch['reg_mask'].size()) + " batch[ind]:" + str(batch['ind'].size()) + " batch[theta]:" + str(batch['theta'].size()))
+      theta_loss += self.crit_reg(output['theta'], batch['reg_mask'], batch['ind'], batch['theta']) / opt.num_stacks
+
     loss = opt.hm_weight * hm_loss + opt.wh_weight * wh_loss + \
-           opt.off_weight * off_loss
+           opt.off_weight * off_loss + opt.theta_weight * theta_loss
     loss_stats = {'loss': loss, 'hm_loss': hm_loss,
-                  'wh_loss': wh_loss, 'off_loss': off_loss}
+                  'wh_loss': wh_loss, 'off_loss': off_loss, 'theta_loss': theta_loss}
     return loss, loss_stats
 
 class CtdetTrainer(BaseTrainer):
@@ -78,7 +83,7 @@ class CtdetTrainer(BaseTrainer):
     super(CtdetTrainer, self).__init__(opt, model, optimizer=optimizer)
   
   def _get_losses(self, opt):
-    loss_states = ['loss', 'hm_loss', 'wh_loss', 'off_loss']
+    loss_states = ['loss', 'hm_loss', 'wh_loss', 'off_loss', 'theta_loss']
     loss = CtdetLoss(opt)
     return loss_states, loss
 
@@ -86,7 +91,7 @@ class CtdetTrainer(BaseTrainer):
     opt = self.opt
     reg = output['reg'] if opt.reg_offset else None
     dets = ctdet_decode(
-      output['hm'], output['wh'], reg=reg,
+      output['hm'], output['wh'], reg=reg, theta=output['theta'],
       cat_spec_wh=opt.cat_spec_wh, K=opt.K)
     dets = dets.detach().cpu().numpy().reshape(1, -1, dets.shape[2])
     dets[:, :, :4] *= opt.down_ratio
