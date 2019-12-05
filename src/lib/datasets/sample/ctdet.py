@@ -52,6 +52,7 @@ class CTDetDataset(data.Dataset):
     
     flipped = False
     if self.split == 'train':
+        # this is data augmentation, rand crop and flip. But it cause mistake when I trained.
       if not self.opt.not_rand_crop:
         s = s * np.random.choice(np.arange(0.6, 1.4, 0.1))
         w_border = self._get_border(128, img.shape[1])
@@ -69,7 +70,7 @@ class CTDetDataset(data.Dataset):
         flipped = True
         img = img[:, ::-1, :]
         c[0] =  width - c[0] - 1
-        
+
 
     trans_input = get_affine_transform(
       c, s, 0, [input_w, input_h])
@@ -105,13 +106,23 @@ class CTDetDataset(data.Dataset):
       ann = anns[k]
       bbox = self._coco_box_to_bbox_8(ann['bbox'])
       cls_id = int(self.cat_ids[ann['category_id']])
-      # if flipped:
+      # if flipped:  # this is original 2points transform.
       #   bbox[[0, 2]] = width - bbox[[2, 0]] - 1
       # bbox[:2] = affine_transform(bbox[:2], trans_output)
       # bbox[2:] = affine_transform(bbox[2:], trans_output)
       # bbox[[0, 2]] = np.clip(bbox[[0, 2]], 0, output_w - 1)
       # bbox[[1, 3]] = np.clip(bbox[[1, 3]], 0, output_h - 1)
       # h, w = bbox[3] - bbox[1], bbox[2] - bbox[0]
+
+      # klb: transform original bbox to (bbox/scale)
+      if flipped:
+        bbox[[0,2,4,6]] = width - bbox[[0,2,4,6]] - 1
+      bbox[0:2] = affine_transform(bbox[0:2], trans_output)
+      bbox[2:4] = affine_transform(bbox[2:4], trans_output)
+      bbox[4:6] = affine_transform(bbox[4:6], trans_output)
+      bbox[6:8] = affine_transform(bbox[6:8], trans_output)
+      bbox[[0,2,4,6]] = np.clip(bbox[[0,2,4,6]], 0, output_w - 1)
+      bbox[[1,3,5,7]] = np.clip(bbox[[1,3,5,7]], 0, output_h - 1)
       ctx_kth, cty_kth, w_kth, h_kth, theta_kth = self.polygonToRotRectangle(bbox)
       h, w = h_kth, w_kth
       if h > 0 and w > 0:
@@ -124,7 +135,7 @@ class CTDetDataset(data.Dataset):
         draw_gaussian(hm[cls_id], ct_int, radius)
         wh[k] = 1. * w, 1. * h
         theta[k] = theta_kth
-        ind[k] = ct_int[1] * output_w + ct_int[0]
+        ind[k] = ct_int[1] * output_w + ct_int[0]  # 'ind' means 'index', it is the index of 2-dim. so y*w+x
         reg[k] = ct - ct_int
         reg_mask[k] = 1
         cat_spec_wh[k, cls_id * 2: cls_id * 2 + 2] = wh[k]

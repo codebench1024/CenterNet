@@ -58,6 +58,7 @@ class BaseTrainer(object):
     bar = Bar('{}/{}'.format(opt.task, opt.exp_id), max=num_iters)
     end = time.time()
     for iter_id, batch in enumerate(data_loader):
+      print('base_trainer, iter_id=%s' % iter_id)
       if iter_id >= num_iters:
         break
       data_time.update(time.time() - end)

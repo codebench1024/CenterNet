@@ -62,15 +62,12 @@ class CtdetLoss(torch.nn.Module):
           wh_loss += self.crit_reg(
             output['wh'], batch['reg_mask'],
             batch['ind'], batch['wh']) / opt.num_stacks
-          print("this is wh loss, output[wh]:" + str(output['wh'].size()) + " batch[reg_mask]:" + str(
-            batch['reg_mask'].size()) + " batch[ind]:" + str(batch['ind'].size()) + " batch[wh]:" + str(
-            batch['wh'].size()))
 
       if opt.reg_offset and opt.off_weight > 0:
         off_loss += self.crit_reg(output['reg'], batch['reg_mask'],
                              batch['ind'], batch['reg']) / opt.num_stacks
-      print("this is theta loss, output[theta]:" + str(output['theta'].size()) + " batch[reg_mask]:" + str(batch['reg_mask'].size()) + " batch[ind]:" + str(batch['ind'].size()) + " batch[theta]:" + str(batch['theta'].size()))
       theta_loss += self.crit_reg(output['theta'], batch['reg_mask'], batch['ind'], batch['theta']) / opt.num_stacks
+      #theta_loss = off_loss
 
     loss = opt.hm_weight * hm_loss + opt.wh_weight * wh_loss + \
            opt.off_weight * off_loss + opt.theta_weight * theta_loss
