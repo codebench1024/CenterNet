@@ -480,7 +480,9 @@ def ctdet_decode(heat, wh, reg=None, theta=None, cat_spec_wh=False, K=100):
       xs = xs.view(batch, K, 1) + 0.5
       ys = ys.view(batch, K, 1) + 0.5
     wh = _tranpose_and_gather_feat(wh, inds)
+    # this is my code, as for theta, don't have to transpose, because it is the same
     theta = _tranpose_and_gather_feat(theta, inds)
+    print("############# decode.py, after transpose, xs=%s, ys=%s, wh=%s, theta=%s" %(xs,ys,wh,theta))
     if cat_spec_wh:
       wh = wh.view(batch, K, cat, 2)
       clses_ind = clses.view(batch, K, 1, 1).expand(batch, K, 1, 2).long()
@@ -505,6 +507,7 @@ def ctdet_decode(heat, wh, reg=None, theta=None, cat_spec_wh=False, K=100):
     centerpoint = torch.cat((xs,ys,xs,ys,xs,ys,xs,ys), dim=2)
     bboxes = torch.add(bboxes, centerpoint)   # add (xs, ys),   get abs location, not relative location
     detections = torch.cat([bboxes, scores, clses], dim=2)
+    print('############# decode.py, detections=' + str(detections))
 
     return detections
 

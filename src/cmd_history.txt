@@ -1,0 +1,1000 @@
+  965  git config --global user.email "konglb0102@outlook.com"
+  966  git config --global user.name "leobean"
+  967  git commit -m "train dota, first commit, 2019-11-07"
+  968  git status
+  969  git branch
+  970  git push 
+  971  git push --set-upstream origin dev
+  972  git status
+  973  git branch 
+  974  cd ../
+  975  cd ..
+  976  ll
+  977  cd dota/
+  978  ll
+  979  cd cocoapi/
+  980  ll
+  981  cd PythonAPI/
+  982  ll
+  983  vim pycocoEvalDemo.ipynb 
+  984  jupyter notebook
+  985  ll
+  986  rm Cluster\:q 
+  987  ll
+  988  vim cocoEvalEachClass.py
+  989  cd ..
+  990  ls
+  991  cd dota/
+  992  ll
+  993  cd Faster_RCNN_for_DOTA/
+  994  ll
+  995  ll data
+  996  source activate CenterNet
+  997  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5
+  998  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+  999  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --gpus 1
+ 1000  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test --gpus 1
+ 1001  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test --gpus 1,2,3
+ 1002  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test --batch_size 12 --gpus 1,2,3
+ 1003  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test --batch_size 12 --master_batch_size 4 --gpus 1,2,3
+ 1004  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test --batch_size 1
+ 1005  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test 
+ 1006  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test --trainval
+ 1007  python test.py ctdet --exp_id dota1016 --keep_res --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test 
+ 1008  python test.py ctdet --exp_id dota1016 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test 
+ 1009  python test.py --exp_id dota1016 --not_prefetch_test ctdet --load_model ../exp/ctdet/dota1016/model_best.pth 
+ 1010  python test.py --exp_id dota1016 --not_prefetch_test ctdet --keep_res--load_model ../exp/ctdet/dota1016/model_best.pth 
+ 1011  python test.py --exp_id dota1016 --not_prefetch_test ctdet --keep_res --load_model ../exp/ctdet/dota1016/model_best.pth 
+ 1012  python test.py ctdet --exp_id dota1016 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth  --not_prefetch_test 
+ 1013  python test.py ctdet --exp_id dota1016 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth  --not_prefetch_test 
+ 1014  python test.py ctdet --exp_id resnet1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet1022/model_best.pth --not_prefetch_test 
+ 1015  python test.py ctdet --exp_id resnet1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet1022/model_best.pth --not_prefetch_test  --gpus 6
+ 1016  python test.py ctdet --exp_id resnet1022 --flip_test --keep_res --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet1022/model_best.pth --not_prefetch_test  --gpus 6
+ 1017  python test.py ctdet --exp_id resnet1022 --flip_test --keep_res --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet1022/model_best.pth --not_prefetch_test  --gpus 1,2,3,4
+ 1018  python test.py ctdet --exp_id resnet1022 --flip_test --keep_res --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet1022/model_best.pth --not_prefetch_test  --gpus -1
+ 1019  python test.py ctdet --exp_id resnet1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet1022/model_best.pth --not_prefetch_test  --gpus 1
+ 1020  python test.py ctdet --exp_id hourglass1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/hourglass1022/model_last.pth --not_prefetch_test  --gpus 1,2,3,4
+ 1021  python test.py ctdet --exp_id hourglass1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/hourglass1022/model_last.pth --not_prefetch_test  --gpus 1
+ 1022  python test.py ctdet --exp_id resnet1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet1022/model_best.pth --not_prefetch_test  --gpus 1
+ 1023  python test.py ctdet --exp_id hourglass1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/hourglass1022/model_last.pth --not_prefetch_test  --gpus 1
+ 1024  python test.py ctdet --exp_id hourglass1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/hourglass1022/model_last.pth --not_prefetch_test  --gpus 1 > log.txt
+ 1025  vim log.txt 
+ 1026  rm log.txt 
+ 1027  python test.py ctdet --exp_id hourglass1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/hourglass1022/model_last.pth --not_prefetch_test  --gpus 1 --arch hourglass
+ 1028  python test.py ctdet --exp_id hourglass1022 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/hourglass1022/model_best.pth --not_prefetch_test --gpus 1 --arch hourglass
+ 1029  python test.py ctdet --exp_id resnet18 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet18/model_best.pth --not_prefetch_test --gpus 1 --arch res_18
+ 1030  python test.py ctdet --exp_id resnet18_vehicle --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet18_vehicle/model_best.pth --not_prefetch_test --gpus 1 --arch res_18
+ 1031  ls
+ 1032  ll
+ 1033  python test.py ctdet --exp_id resnet50 --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50
+ 1034  python demo.py --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P0003__1__0___0.png --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_last.pth 
+ 1035  python demo.py ctdet --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P0003__1__0___0.png --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_last.pth 
+ 1036  python demo.py ctdet --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P0003__1__0___0.png --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_last.pth --arch res_50
+ 1037  python demo.py ctdet --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P0003__1__123___0.png --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50
+ 1038  python demo.py ctdet --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P0019__1__824___0.png --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50
+ 1039  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P0019__1__1648___1648.png 
+ 1040  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P1147__1__824___4120.png 
+ 1041  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P1147__1__2472___0.png 
+ 1042  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /home/konglingbin/project/dota/CenterNet/data/dota/val/P1149__1__1648___824.png
+ 1043  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /data/konglingbin/DOTA/DOTA/val_split_gap200/images/P1178__1__824___3296.png
+ 1044  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /data/konglingbin/DOTA/DOTA/val_split_gap200/images/P1212__1__1648___824.png 
+ 1045  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /data/konglingbin/DOTA/DOTA/val_split_gap200/images/P1242__1__2472___2472.png 
+ 1046  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /data/konglingbin/DOTA/DOTA/val_split_gap200/images/P1474__1__0___824.png 
+ 1047  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /data/konglingbin/DOTA/DOTA/val_split_gap200/images/P1529__1__1648___0.png 
+ 1048  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /data/konglingbin/DOTA/DOTA/val_split_gap200/images/P2462__1__824___1179.png 
+ 1049  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /data/konglingbin/DOTA/DOTA/test_split_gap200/images/P0024__1__824___1648.png 
+ 1050  python demo.py ctdet --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --arch res_50 --demo /data/konglingbin/DOTA/DOTA/test_split_gap200/images/P0043__1__1648___824.png 
+ 1051  ls
+ 1052  mv P0024__1__824___1648.png ../images/
+ 1053  python test.py ctdet --exp_id resnet50 --flip_test --K 300--test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50
+ 1054  python test.py ctdet --exp_id resnet50 --flip_test --K 300 --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50
+ 1055  cd ~/project/dota/CenterNet/src
+ 1056  ll
+ 1057  cd lib/external/
+ 1058  ll
+ 1059  make
+ 1060  source activate CenterNet
+ 1061  make
+ 1062  cd ../../../
+ 1063  ll
+ 1064  cd ..
+ 1065  cd DOTA_devkit/
+ 1066  ll
+ 1067  vim DOTA2COCO.py 
+ 1068  python DOTA2COCO.py 
+ 1069  cd ..
+ 1070  cd CenterNet/
+ 1071  ll
+ 1072  cd data/
+ 1073  ll
+ 1074  cd dota/
+ 1075  ll
+ 1076  ln -s /data/konglingbin/DOTA/DOTA/test/images test
+ 1077  ll
+ 1078  ln -s /data/konglingbin/DOTA/DOTA/DOTA_test.json DOTA_test.json
+ 1079  ll
+ 1080  cd ..
+ 1081  cd ../../DOTA_devkit/
+ 1082  ll
+ 1083  vim DOTA2COCO.py 
+ 1084  python DOTA2COCO.py 
+ 1085  ll
+ 1086  vim ImgSplit.py 
+ 1087  mkdir /data/konglingbin/DOTA/DOTA/train_split
+ 1088  mkdir /data/konglingbin/DOTA/DOTA/val_split
+ 1089  mkdir /data/konglingbin/DOTA/DOTA/test_split
+ 1090  mkdir /data/konglingbin/DOTA/DOTA/train_split/images
+ 1091  mkdir /data/konglingbin/DOTA/DOTA/train_split/labelTxt
+ 1092  mkdir /data/konglingbin/DOTA/DOTA/val_split/labelTxt
+ 1093  mkdir /data/konglingbin/DOTA/DOTA/val_split/images
+ 1094  mkdir /data/konglingbin/DOTA/DOTA/test_split/images
+ 1095  vim ImgSplit.py 
+ 1096  python ImgSplit.py 
+ 1097  vim ImgSplit.py 
+ 1098  python ImgSplit.py 
+ 1099  vim DOTA2COCO.py 
+ 1100  python DOTA2COCO.py 
+ 1101  vim DOTA2COCO.py 
+ 1102  python DOTA2COCO.py 
+ 1103  vim ImgSplit.py 
+ 1104  python ImgSplit.py 
+ 1105  vim DOTA2COCO.py 
+ 1106  python DOTA2COCO.py 
+ 1107  vim DOTA2COCO.py 
+ 1108  vim ResultMerge.py 
+ 1109  python ResultMerge.py 
+ 1110  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_premerge/Task1_baseball-diamond.txt 
+ 1111  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_merge/Task1_baseball-diamond.txt 
+ 1112  vim ResultMerge.py 
+ 1113  python ResultMerge.py 
+ 1114  vim ResultMerge.py 
+ 1115  python ResultMerge.py 
+ 1116  vim ResultMerge.py 
+ 1117  python ResultMerge.py 
+ 1118  vim DOTA2COCO.py 
+ 1119  vim ImgSplit.py 
+ 1120  python ImgSplit.py 
+ 1121  vim ImgSplit.py 
+ 1122  python ImgSplit.py 
+ 1123  vim ImgSplit
+ 1124  vim ImgSplit.py 
+ 1125  python ImgSplit.py 
+ 1126  vim DOTA2COCO.py 
+ 1127  cp DOTA2COCO.py DOTA2COCO_vechle.py
+ 1128  vim DOTA2COCO.py 
+ 1129  mv DOTA2COCO_vechle.py DOTA2COCO_vehicle.py
+ 1130  vim DOTA2COCO_vehicle.py 
+ 1131  python DOTA2COCO_vehicle.py 
+ 1132  vim DOTA2COCO_vehicle.py 
+ 1133  python DOTA2COCO_vehicle.py 
+ 1134  vim DOTA2COCO_vehicle.py 
+ 1135  python DOTA2COCO_vehicle.py 
+ 1136  vim ImgSplit.py 
+ 1137  vim DOTA2COCO_vehicle.py 
+ 1138  python DOTA2COCO_vehicle.py 
+ 1139  vim ImgSplit.py 
+ 1140  python ImgSplit.py 
+ 1141  vim ImgSplit.py 
+ 1142  python ImgSplit.py 
+ 1143  vim ImgSplit.py 
+ 1144  python ImgSplit.py 
+ 1145  vim DOTA2COCO_vehicle.py 
+ 1146  vim DOTA2COCO_sh.sh
+ 1147  sh DOTA2COCO_sh.sh 
+ 1148  vim DOTA2COCO_sh.sh
+ 1149  vim DOTA2COCO_vehicle.py 
+ 1150  sh DOTA2COCO_sh.sh 
+ 1151  vim DOTA2COCO_sh.sh
+ 1152  vim ResultMerge.py 
+ 1153  python ResultMerge.py 
+ 1154  vim DOTA2COCO_sh.sh 
+ 1155  vim DOTA2COCO.py
+ 1156  python DOTA2COCO.py 
+ 1157  vim DOTA2COCO.py
+ 1158  python DOTA2COCO.py 
+ 1159  vim DOTA2COCO.py
+ 1160  python DOTA2COCO.py 
+ 1161  vim ResultMerge.py 
+ 1162  python ResultMerge.py 
+ 1163  vim ResultMerge.py 
+ 1164  python ResultMerge.py 
+ 1165  vim ResultMerge.py 
+ 1166  python ResultMerge.py 
+ 1167  nvidia-smi
+ 1168  source activate CenterNet
+ 1169  cd project/dota/CenterNet/
+ 1170  ll
+ 1171  cd src/
+ 1172  python main.py ctdet --exp_id dota1016 --batch_size 32 --lr 1.25e-4 --gpus 0,1,2,3
+ 1173  python main.py ctdet --exp_id hourglass1021 --batch_size 32 --lr 1.25e-4 --gpus 0,1,2,3 --arch hourglass
+ 1174  python main.py ctdet --exp_id dota1016 --batch_size 32 --master_batch 8 --lr 1.25e-4 --gpus 0,1,2,3
+ 1175  python main.py ctdet --exp_id hourglass1022 --batch_size 32 --master_batch 8 --lr 1.25e-4 --gpus 0,1,2,3 --arch hourglass --not_rand_crop
+ 1176  python main.py ctdet --exp_id hourglass1022 --batch_size 16 --master_batch 4 --lr 1.25e-4 --gpus 0,1,2,3 --arch hourglass --not_rand_crop
+ 1177  python main.py ctdet --exp_id hourglass1022 --batch_size 16 --master_batch 4 --lr 1.25e-4 --gpus 4,5,6,7 --arch hourglass --not_rand_crop
+ 1178  python main.py ctdet --exp_id hourglass1022 --batch_size 16 --master_batch 2 --lr 1.25e-4 --gpus 0,1,2,3,4,5,6,7 --arch hourglass --not_rand_crop
+ 1179  python main.py ctdet --exp_id hourglass1022 --batch_size 16 --master_batch 2 --lr 1.25e-4 --gpus 0,1,2,3,4,5,6,7  --not_rand_crop
+ 1180  python main.py ctdet --exp_id hourglass1022 --batch_size 8 --master_batch 1 --lr 1.25e-4 --gpus 0,1,2,3,4,5,6,7 --arch hourglass --not_rand_crop
+ 1181  python main.py ctdet --exp_id resnet1022 --batch_size 32 --master_batch 4 --lr 1.25e-4 --gpus 0,1,2,3,4,5,6,7 --not_rand_crop
+ 1182  python main.py ctdet --exp_id resnet1022 --batch_size 24 --master_batch 4 --lr 1.25e-4 --gpus 0,1,2,3,4,5 --not_rand_crop
+ 1183  python main.py ctdet --exp_id resnet1022 --batch_size 22 --master_batch 2 --lr 1.25e-4 --gpus 0,1,2,3,4,5 --not_rand_crop
+ 1184  python main.py ctdet --exp_id resnet1022 --batch_size 17 --master_batch 2 --lr 1.25e-4 --gpus 0,1,2,3,4,5 --not_rand_crop
+ 1185  python main.py ctdet --exp_id hourglass1022 --batch_size 4 --master_batch 1 --lr 1.25e-4 --num_epochs 80 --lr_step '55,70' --gpus 0,1,2,3 --arch hourglass --not_rand_crop --val_intervals 15
+ 1186  python main.py ctdet --exp_id resnet18 --batch_size 15 --master_batch 3 --lr 1.25e-4 --num_epochs 80 --lr_step '55,70' --gpus 0,1,2,3 --arch res_18 --down_ratio 2 --not_rand_crop --val_intervals 15
+ 1187  python main.py ctdet --exp_id resnet18 --batch_size 15 --master_batch 3 --lr 1.25e-4 --num_epochs 80 --lr_step '55,70' --gpus 0,1,2,3 --arch res_18 --not_rand_crop --val_intervals 15
+ 1188  python main.py ctdet --exp_id resnet18 --batch_size 30 --master_batch 6 --lr 1.25e-4 --num_epochs 80 --lr_step '55,70' --gpus 0,1,2,3 --arch res_18 --not_rand_crop --val_intervals 15
+ 1189  python main.py ctdet --exp_id resnet18_vehicle --batch_size 30 --master_batch 6 --lr 1.25e-4 --num_epochs 80 --lr_step '55,70' --gpus 0,1,2,3 --arch res_18 --not_rand_crop --val_intervals 15
+ 1190  python main.py ctdet --exp_id resnet50 --batch_size 30 --master_batch 6 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0,1,2,3 --arch res_50 --not_rand_crop --val_intervals 15
+ 1191  python main.py ctdet --exp_id resnet50 --batch_size 22 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0,1,2,3,4,5 --arch res_50 --not_rand_crop --val_intervals 15
+ 1192  nvidia-smi
+ 1193  top
+ 1194  vim /data/konglingbin/DOTA/DOTA/train_split/labelTxt/P0002__1__0___0.txt
+ 1195  top
+ 1196  nvidia-smi 
+ 1197  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results/P0006__1__0___0.txt 
+ 1198  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_premerge/
+ 1199  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_premerge/Task1_baseball-diamond.txt 
+ 1200  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_merge/Task1_baseball-diamond.txt 
+ 1201  nvidia-smi 
+ 1202  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_premerge/Task1_baseball-diamond.txt 
+ 1203  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_merge/Task1_baseball-diamond.txt 
+ 1204  nvidia-smi 
+ 1205  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_merge/Task1_baseball-diamond.txt
+ 1206  nvidia-smi 
+ 1207  vim /home/konglingbin/project/dota/Faster_RCNN_for_DOTA/output/rcnn/DOTA_quadrangle/DOTA_quadrangle/test/test_results_merge/Task1_baseball-diamond.txt
+ 1208  nvidia-smi 
+ 1209  source activate CenterNet
+ 1210  cd /data/konglingbin/DOTA/DOTA/test/
+ 1211  ll
+ 1212  ll images/{*}.png | {}
+ 1213  ll images/*.png
+ 1214  ll
+ 1215  cd labelTxt_hbb/
+ 1216  l;
+ 1217  ll
+ 1218  shell
+ 1219  vim temp.sh
+ 1220  sh temp.sh
+ 1221  vim temp.sh
+ 1222  sh temp.sh
+ 1223  vim temp.sh
+ 1224  sh temp.sh
+ 1225  vim temp.sh
+ 1226  sh temp.sh 
+ 1227  vim temp.sh
+ 1228  vim temp ../images
+ 1229  sh temp ../images
+ 1230  sh temp.sh ../images
+ 1231  files = /home/konglingbin/123
+ 1232  vim temp.sh 
+ 1233  sh temp.sh 
+ 1234  ll
+ 1235  rm temp.sh 
+ 1236  ls ../images/ | mkdir
+ 1237  ls ../images/ | mkdir {}
+ 1238  ll
+ 1239  rm {}
+ 1240  rm -r {}
+ 1241  python
+ 1242  ll
+ 1243  ls | wc -l
+ 1244  ls ../images/ |wc -l
+ 1245  vim /home/konglingbin/project/dota/CenterNet/exp/ctdet/hourglass1022/logs_2019-10-29-20-14/log.txt 
+ 1246  vim /home/konglingbin/project/dota/CenterNet/src/lib/datasets/dataset/dota.py 
+ 1247  ll
+ 1248  cd ..
+ 1249  ll
+ 1250  cd ..
+ 1251  ll
+ 1252  rm -r train_split_gap200/*
+ 1253  rm -r val_split_gap200/*
+ 1254  rm -r test_split_gap200/*
+ 1255  ll
+ 1256  ll val_split_gap200/
+ 1257  ll
+ 1258  cat /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/logs_2019-10-16-17-21/log.txt 
+ 1259  ll
+ 1260  cd project/dota/CenterNet/
+ 1261  source activate CenterNet
+ 1262  cd src
+ 1263  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0003.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth 
+ 1264  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0047.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth 
+ 1265  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0079.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth 
+ 1266  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0079.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1267  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0131.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1268  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0910.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1269  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0650.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1270  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0550.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1271  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0683.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1272  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1476.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1273  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1476.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth 
+ 1274  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1476.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1275  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0058.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1276  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0081.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1277  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0060.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1278  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0128.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1279  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1786.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_best.pth 
+ 1280  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1786.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth 
+ 1281  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1786.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth --test_scales 0.5,0.75,1.0,1.25,1.5
+ 1282  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1786.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth
+ 1283  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1786.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth --test_scales 0.25 0.5,0.75,1.0,1.25,1.5
+ 1284  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P1786.png --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/dota1016/model_last.pth --test_scales 0.25,0.5,0.75,1.0,1.25,1.5
+ 1285  ll 
+ 1286  ll ../data/
+ 1287  ll ../data/dota/
+ 1288  vim ../exp/ctdet/hourglass1021/logs_2019-10-21-10-24/log.txt 
+ 1289  ll
+ 1290  ll ../data/dota/
+ 1291  ln -snf /data/konglingbin/DOTA/DOTA/train_split/images/ ../data/dota/train
+ 1292  ll ../data/dota/
+ 1293  ln -snf /data/konglingbin/DOTA/DOTA/val_split/images/ ../data/dota/val
+ 1294  ll ../data/dota/
+ 1295  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_train_split.json ../data/dota/DOTA_train.json
+ 1296  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_val_split.json ../data/dota/DOTA_val.json
+ 1297  ll ../data/dota/
+ 1298  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_test_split.json ../data/dota/DOTA_test.json
+ 1299  ll ../data/dota/
+ 1300  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_test.json ../data/dota/DOTA_test.json
+ 1301  ll ../data/dota/
+ 1302  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_test_split.json ../data/dota/DOTA_test_split.json
+ 1303  ln -snf /data/konglingbin/DOTA/DOTA/test_split ../data/dota/DOTA_test
+ 1304  ll ../data/dota/
+ 1305  rm ../data/dota/DOTA_test
+ 1306  ln -snf /data/konglingbin/DOTA/DOTA/test_split ../data/dota/test
+ 1307  ll ../data/dota/
+ 1308  ln -snf /data/konglingbin/DOTA/DOTA/test_split/images ../data/dota/test
+ 1309  ll ../data/dota/
+ 1310  rm ../data/dota/DOTA_test.json 
+ 1311  mv ../data/dota/DOTA_test_split.json ../data/dota/DOTA_test.json
+ 1312  LL ../data/dota/
+ 1313  ll ../data/dota/
+ 1314  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0128.png --load_model ../exp/ctdet/resnet1022/model_best.pth --flip_test --test_scales 0.5,0.75,1,1.25,1.5
+ 1315  python demo.py ctdet --demo /data/konglingbin/DOTA/DOTA/val/images/P0128.png --load_model ../exp/ctdet/resnet1022/model_best.pth --flip_test --test_scales 0.5,0.75,1,1.25,1.5 --keep_res --gpus 2
+ 1316  ll ../data/dota/test
+ 1317  ll ../data/dota/
+ 1318  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_train_split_gap200.json ../data/dota/DOTA_train.json
+ 1319  ll ../data/dota/
+ 1320  ll
+ 1321  vim eval_dota_jsonformat.py
+ 1322  ll ../data/dota/
+ 1323  vim eval_dota_jsonformat.py
+ 1324  python eval_dota_jsonformat.py 
+ 1325  vim eval_dota_jsonformat.py
+ 1326  python eval_dota_jsonformat.py 
+ 1327  vim eval_dota_jsonformat.py
+ 1328  python eval_dota_jsonformat.py 
+ 1329  vim eval_dota_jsonformat.py
+ 1330  ll
+ 1331  vim eval_dota_jsonformat.py
+ 1332  python eval_dota_jsonformat.py 
+ 1333  cp /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools/cocoeval.py /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools/cocoeval_back.py
+ 1334  rm /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools/cocoeval.py 
+ 1335  mv /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools/cocoEvalEachClass.py cocoeval.py
+ 1336  vim eval_dota_jsonformat.py 
+ 1337  python eval_dota_jsonformat.py 
+ 1338  vim eval_dota_jsonformat.py 
+ 1339  python eval_dota_jsonformat.py 
+ 1340  vim eval_dota_jsonformat.py 
+ 1341  rm eval_dota_jsonformat.py 
+ 1342  ll
+ 1343  mv cocoeval.py /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools/cocoeval.py
+ 1344  vim eval_dota_jsonformat.py
+ 1345  python eval_dota_jsonformat.py 
+ 1346  ll
+ 1347  rm eval_dota_jsonformat.py 
+ 1348  ll /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools
+ 1349  rm /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools/cocoeval.py 
+ 1350  mv /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools/cocoeval_back.py /home/konglingbin/project/dota/cocoapi/PythonAPI/pycocotools/cocoeval.py
+ 1351  ll ../data/dota/
+ 1352  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_test_split_gap200.json ../data/dota/DOTA_test.json
+ 1353  ll ../data/dota/
+ 1354  ln -snf /data/konglingbin/DOTA/DOTA/train_split_gap200/images ../data/dota/train
+ 1355  ln -snf /data/konglingbin/DOTA/DOTA/val_split_gap200/images ../data/dota/val
+ 1356  ln -snf /data/konglingbin/DOTA/DOTA/test_split_gap200/images ../data/dota/test
+ 1357  ll ../data/dota/
+ 1358  rm -r ../data/dota/train_small
+ 1359  rm -r ../data/dota/val_small
+ 1360  ll ../data/dota/
+ 1361  k
+ 1362  exit
+ 1363  tmux attach
+ 1364  tmux ls
+ 1365  tmux -ls
+ 1366  tmux --ls
+ 1367  tmux attach
+ 1368  history
+ 1369  byobu
+ 1370  tmux attach
+ 1371  tmux ls
+ 1372  tmux
+ 1373  tmux a
+ 1374  tmux list-session
+ 1375  tmux a -t /tmp/tmux-1014/default
+ 1376  screen -r
+ 1377  byobu -r
+ 1378  tmux new -s leobean
+ 1379  byobu
+ 1380  exit
+ 1381  :new
+ 1382  byobu
+ 1383  man byobu
+ 1384  byobu --version
+ 1385  byobu
+ 1386  byobu -ls
+ 1387  byobu ls
+ 1388  tmux attach -a leobean
+ 1389  tmux attach --a leobean
+ 1390  tmux attach -t leobean
+ 1391  byobu
+ 1392  cd ..
+ 1393  ll
+ 1394  git clone https://github.com/leobean/CenterNet_oriented.git
+ 1395  ll
+ 1396  cd CenterNet_oriented/
+ 1397  git branch
+ 1398  git branch -r
+ 1399  git fetch origin dev:dev
+ 1400  git branch
+ 1401  git checkout -b dev
+ 1402  git checkout dev
+ 1403  git branch
+ 1404  cd ..
+ 1405  cd CenterNet/
+ 1406  git fetch origin oriented:oriented
+ 1407  git branch
+ 1408  git branch oriented
+ 1409  git checkout oriented
+ 1410  git checkout -f oriented
+ 1411  git branch
+ 1412  ll
+ 1413  git checkout dev
+ 1414  git checkout oriented
+ 1415  git pull origin dev:oriented
+ 1416  git branch
+ 1417  ll
+ 1418  git push origin oriented:oriented
+ 1419  git status 
+ 1420  git branch
+ 1421  pwd
+ 1422  vim src/lib/models/networks/msra_resnet.py 
+ 1423  vim src/lib/datasets/sample/ctdet.py 
+ 1424  git branch
+ 1425  git checkout dev
+ 1426  vim src/lib/datasets/sample/ctdet.py 
+ 1427  git checkout oriented
+ 1428  vim src/lib/datasets/sample/ctdet.py 
+ 1429  git checkout dev
+ 1430  vim src/lib/datasets/sample/ctdet.py 
+ 1431  git checkout oriented 
+ 1432  vim src/lib/datasets/sample/ctdet.py 
+ 1433  source activate CenterNet
+ 1434  ll
+ 1435  git branch
+ 1436  cd ..
+ 1437  ll
+ 1438  mkdir itismytest
+ 1439  cd itismytest/
+ 1440  vim torch_theta_dim.py
+ 1441  python torch_theta_dim.py 
+ 1442  vim torch_theta_dim.pyexit
+ 1443  vim torch_theta_dim.py
+ 1444  python torch_theta_dim.py 
+ 1445  vim torch_theta_dim.py
+ 1446  python torch_theta_dim.py
+ 1447  vim torch_theta_dim.py
+ 1448  python torch_theta_dim.py
+ 1449  vim torch_theta_dim.py
+ 1450  python torch_theta_dim.py
+ 1451  vim torch_theta_dim.py
+ 1452  python torch_theta_dim.py
+ 1453  vim torch_theta_dim.py
+ 1454  python torch_theta_dim.py
+ 1455  vim torch_theta_dim.py
+ 1456  python2
+ 1457  vim torch_theta_dim.py
+ 1458  python2 torch_theta_dim.py 
+ 1459  vim torch_theta_dim.py
+ 1460  python torch_theta_dim.py 
+ 1461  vim torch_theta_dim.py
+ 1462  python torch_theta_dim.py 
+ 1463  vim torch_theta_dim.py
+ 1464  python torch_theta_dim.py 
+ 1465  vim torch_theta_dim.py
+ 1466  python torch_theta_dim.py 
+ 1467  vim torch_theta_dim.py
+ 1468  python torch_theta_dim.py 
+ 1469  vim torch_theta_dim.py
+ 1470  python torch_theta_dim.py 
+ 1471  vim torch_theta_dim.py
+ 1472  python torch_theta_dim.py 
+ 1473  vim torch_theta_dim.py
+ 1474  python torch_theta_dim.py 
+ 1475  vim torch_theta_dim.py
+ 1476  python torch_theta_dim.py 
+ 1477  vim torch_theta_dim.py
+ 1478  python torch_theta_dim.py 
+ 1479  vim torch_theta_dim.py
+ 1480  python torch_theta_dim.py 
+ 1481  vim torch_theta_dim.py
+ 1482  python torch_theta_dim.py 
+ 1483  vim torch_theta_dim.py
+ 1484  python torch_theta_dim.py 
+ 1485  vim torch_theta_dim.py
+ 1486  python torch_theta_dim.py 
+ 1487  vim torch_theta_dim.py
+ 1488  python torch_theta_dim.py 
+ 1489  vim torch_theta_dim.py
+ 1490  python torch_theta_dim.py 
+ 1491  vim torch_theta_dim.py
+ 1492  python torch_theta_dim.py 
+ 1493  vim torch_theta_dim.py
+ 1494  python torch_theta_dim.py 
+ 1495  vim torch_theta_dim.py
+ 1496  python torch_theta_dim.py 
+ 1497  vim torch_theta_dim.py
+ 1498  python torch_theta_dim.py 
+ 1499  vim torch_theta_dim.py
+ 1500  python torch_theta_dim.py 
+ 1501  vim torch_theta_dim.py
+ 1502  python torch_theta_dim.py 
+ 1503  vim torch_theta_dim.py
+ 1504  python torch_theta_dim.py 
+ 1505  vim torch_theta_dim.py
+ 1506  python torch_theta_dim.py 
+ 1507  vim torch_theta_dim.py
+ 1508  python torch_theta_dim.py 
+ 1509  vim torch_theta_dim.py
+ 1510  python torch_theta_dim.py 
+ 1511  exit
+ 1512  cd project/dota/CenterNet/
+ 1513  source activate CenterNet
+ 1514  cd src/
+ 1515  python main.py ctdet --exp_id oriented_resnet50 --batch_size 22 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0,1,2,3,4,5 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1516  python main.py ctdet --exp_id oriented_resnet50 --batch_size 22 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus -1 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1517  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus -1 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1518  python main.py ctdet --exp_id oriented_resnet50 --batch_size 22 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0,1,2,3,4,5 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1519  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0,1,2,3,4,5 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1520  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1521  source activate CenterNet
+ 1522  cd /data/konglingbin/DOTA/DOTA_oriented
+ 1523  python
+ 1524  cd /home/konglingbin/project/dota/CenterNet/
+ 1525  cd src/
+ 1526  ll
+ 1527  cd ..
+ 1528  ll
+ 1529  ll data/
+ 1530  ll data/dota/
+ 1531  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_val_split_gap200/images data/dota/train
+ 1532  ln -snf /data/konglingbin/DOTA/DOTA_oriented/DOTA_train_val_split.json data/dota/DOTA_train.json
+ 1533  ln -snf /data/konglingbin/DOTA/DOTA_oriented/test_split_gap200/images data/dota/test
+ 1534  ln -snf /data/konglingbin/DOTA/DOTA_oriented/DOTA_test_split.json data/dota/DOTA_test.json 
+ 1535  ll data/dota/
+ 1536  ln -snf /data/konglingbin/DOTA/DOTA_oriented/DOTA_val_split.json data/dota/DOTA_val.json 
+ 1537  ln -snf /data/konglingbin/DOTA/DOTA_oriented/val_split_gap200/images data/dota/val
+ 1538  ll data/dota/
+ 1539  cd src/
+ 1540  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_st
+ 1541  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1542  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 15 --K 150 --debug 1
+ 1543  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 15 --K 150 
+ 1544  vim lib/trains/base_trainer.py 
+ 1545  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 15 --K 150 
+ 1546  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 7 --arch res_50 --not_rand_crop --val_intervals 15 --K 150 
+ 1547  vim dota_utils.py 
+ 1548  cd /data/konglingbin/DOTA/DOTA_oriented
+ 1549  ls
+ 1550  l
+ 1551  ll
+ 1552  ln -s /data/konglingbin/DOTA/DOTA/train/images /data/konglingbin/DOTA/DOTA_oriented/train/images
+ 1553  ln -s /data/konglingbin/DOTA/DOTA/val/images /data/konglingbin/DOTA/DOTA_oriented/val/images
+ 1554  ln -s /data/konglingbin/DOTA/DOTA/test/images /data/konglingbin/DOTA/DOTA_oriented/test/images
+ 1555  ll
+ 1556  ll train/
+ 1557  cd ~/project/dota/DOTA_devkit
+ 1558  vim dota_utils.py 
+ 1559  vim dota_utils_testResults2preTask1.py 
+ 1560  vim dota_utils.py 
+ 1561  vim ImgSplit.py 
+ 1562  vim ResultMerge.py 
+ 1563  vim DOTA2COCO.py 
+ 1564  vim dota_utils.py 
+ 1565  vim DOTA2COCO_oriented.py 
+ 1566  python DOTA2COCO_oriented.py 
+ 1567  vim DOTA2COCO_oriented.py 
+ 1568  python DOTA2COCO_oriented.py 
+ 1569  vim DOTA2COCO_oriented.py 
+ 1570  python DOTA2COCO_oriented.py 
+ 1571  vim DOTA2COCO_oriented.py 
+ 1572  python DOTA2COCO_oriented.py 
+ 1573  man byobu
+ 1574  vim DOTA2COCO_oriented.py 
+ 1575  vim dota_utils.py 
+ 1576  source activate CenterNet
+ 1577  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --lr 1.25e-4 --num_epochs 100 --lr_step ‘75,90’ --gpus 7 --arch res_50 --not_rand_crop --val_intervals 15 –K 150
+ 1578  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --lr 1.25e-4 --num_epochs 100 --lr_step ‘75,90’ --gpus 7 --arch res_50 --not_rand_crop --val_intervals 15
+ 1579  history
+ 1580  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --lr 1.25e-4 --num_epochs 100 --lr_step 75,90’ --gpus 7 --arch res_50 --not_rand_crop --val_intervals 15
+ 1581  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 7 --arch res_50 --not_rand_crop --val_intervals 15
+ 1582  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus -1 --arch res_50 --not_rand_crop --val_intervals 15
+ 1583  python main.py ctdet --exp_id oriented_resnet50 --batch_size 1 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 7  --arch res_50 --not_rand_crop --val_intervals 15
+ 1584  python main.py ctdet --exp_id oriented_resnet50 --batch_size 1 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 7  --arch res_50 --not_rand_crop --val_intervals 15 > temp_res.txt
+ 1585  source activate CenterNet
+ 1586  ls
+ 1587  git branch
+ 1588  git checkout dev
+ 1589  git status
+ 1590  vim src/lib/opts.py 
+ 1591  git branch
+ 1592  git checkout oriented 
+ 1593  git status
+ 1594  git branch
+ 1595  git status
+ 1596  git add .
+ 1597  git status
+ 1598  git commit -m "temp modified oriented, ctdet, fpn, opt"
+ 1599  git status
+ 1600  git branch
+ 1601  git checkout dev
+ 1602  git status
+ 1603  vim src/lib/opts.py 
+ 1604  vim src/lib/datasets/sample/ctdet.py 
+ 1605  ll /home/konglingbin/project/dota/CenterNet/data/dota
+ 1606  cd src/
+ 1607  python main.py ctdet --exp_id resnet50 --batch_size 22 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0,1,2,3,4,5 --arch res_50 --not_rand_crop -
+ 1608  -val_intervals 15
+ 1609  python main.py ctdet --exp_id resnet50_dense_wh --batch_size 22 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0,1,2,3,4,5 --arch res_50 --not_rand_crop --val_intervals 15 --dense_wh
+ 1610  python main.py ctdet --exp_id oriented_resnet50 --batch_size 22 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0,1,2,3,4,5 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1611  git branch
+ 1612  vim lib/opts.py 
+ 1613  git checkout oriented
+ 1614  git branch
+ 1615  git checkout oriented
+ 1616  git status
+ 1617  git branch
+ 1618  vim lib/opts.py 
+ 1619  vim lib/external/poly_nms.py 
+ 1620  git branch
+ 1621  git status
+ 1622  git add lib/external/poly_nms.py 
+ 1623  git status
+ 1624  git add .
+ 1625  git status
+ 1626  git commit -m "oriented, have problem in trainer, theta loss, 12-04"
+ 1627  git branch
+ 1628  git status
+ 1629  git checkout dev
+ 1630  ls
+ 1631  ll
+ 1632  ll ../data/dota/
+ 1633  vim lib/models/losses.py 
+ 1634  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 15 --K 150
+ 1635  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 15 --K 150 > temp_res.txt
+ 1636  vim temp_res.txt 
+ 1637  rm temp_res.txt 
+ 1638  git status
+ 1639  git checkout oriented 
+ 1640  git checkout -- lib/models/losses.py
+ 1641  git status
+ 1642  git checkout oriented 
+ 1643  vim lib/models/losses.py 
+ 1644  vim temp_res.txt 
+ 1645  cd ~/project/dota/itismytest
+ 1646  source activate CenterNet
+ 1647  python torch_theta_dim.py 
+ 1648  vim torch_theta_dim.py 
+ 1649  python torch_theta_dim.py 
+ 1650  vim torch_theta_dim.py 
+ 1651  python torch_theta_dim.py 
+ 1652  vim torch_theta_dim.py 
+ 1653  python torch_theta_dim.py 
+ 1654  vim torch_theta_dim.py 
+ 1655  vim torch_theta_dim.py 
+ 1656  python torch_theta_dim.py 
+ 1657  vim torch_theta_dim.py 
+ 1658  python torch_theta_dim.py 
+ 1659  vim torch_theta_dim.py
+ 1660  python torch_theta_dim.py 
+ 1661  vim torch_theta_dim.py
+ 1662  python torch_theta_dim.py 
+ 1663  vim torch_theta_dim.py
+ 1664  python torch_theta_dim.py 
+ 1665  vim torch_theta_dim.py
+ 1666  python torch_theta_dim.py 
+ 1667  vim torch_theta_dim.py
+ 1668  cd /data/konglingbin/DOTA/DOTA_oriented/
+ 1669  LS
+ 1670  ls
+ 1671  LS
+ 1672  ls
+ 1673  ll
+ 1674  df -h
+ 1675  cp train/images/* train_val/images/
+ 1676  cp val/images/* train_val/images/
+ 1677  cp train/labelTxt/* train_val/labelTxt/
+ 1678  cp val/labelTxt/* train_val/labelTxt/
+ 1679  ls -l train_val/images/
+ 1680  ls -l train_val/images|grep "^-"|wc -l
+ 1681  ls -l train_val/labelTxt|grep "^-"|wc -l
+ 1682  ls -l train/labelTxt|grep "^-"|wc -l
+ 1683  ls -l val/labelTxt|grep "^-"|wc -l
+ 1684  ls -l train_val_split_gap200 |grep "^-"|wc -l
+ 1685  ls -l train_val_split_gap200/images |grep "^-"|wc -l
+ 1686  ls -l train_val_split_gap200/labelTxt |grep "^-"|wc -l
+ 1687  top
+ 1688  nvidia-smi 
+ 1689  top
+ 1690  nvidia-smi 
+ 1691  top
+ 1692  nvidia-smi 
+ 1693  cd 
+ 1694  ll
+ 1695  cd project/
+ 1696  ls
+ 1697  cd dota/
+ 1698  ls
+ 1699  cd DOTA_devkit/
+ 1700  ls
+ 1701  vim DOTA2COCO.py 
+ 1702  rm DOTA2COCO_sh.sh 
+ 1703  vim DOTA2COCO.py 
+ 1704  cp DOTA2COCO.py DOTA2COCO_oriented.py
+ 1705  vim DOTA2COCO_oriented.py 
+ 1706  vim ImgSplit_multi_process.py 
+ 1707  vim ImgSplit.py 
+ 1708  vim DOTA2COCO.py 
+ 1709  vim ImgSplit.py 
+ 1710  python ImgSplit.py 
+ 1711  vim ImgSplit.py 
+ 1712  python ImgSplit.py 
+ 1713  vim ImgSplit.py 
+ 1714  python ImgSplit.py 
+ 1715  vim ImgSplit.py 
+ 1716  python ImgSplit.py 
+ 1717  vim ResultMerge.py 
+ 1718  python
+ 1719  source activate CenterNet
+ 1720  python ResultMerge.py 
+ 1721  source activate CenterNet
+ 1722  nvidia-smi
+ 1723  ls
+ 1724  nvidia-smi
+ 1725  python test.py ctdet --exp_id resnet50_dense_wh --flip_test --K 150 --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50_dense_wh/model_best.pth --not_prefetch_test --gpus 6 --arch res_50
+ 1726  cd src
+ 1727  python test.py ctdet --exp_id resnet50_dense_wh --flip_test --K 150 --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50_dense_wh/model_best.pth --not_prefetch_test --gpus 6 --arch res_50
+ 1728  git branch
+ 1729  git status
+ 1730  vim lib/opts.py 
+ 1731  ll lib/
+ 1732  ll lib/trains/
+ 1733  git status
+ 1734  git checkout -- lib/opts.py
+ 1735  git checkout -- lib/trains/ctdet.py
+ 1736  git status
+ 1737  vim lib/opts.py 
+ 1738  git checkout oriented 
+ 1739  vim lib/opts.py 
+ 1740  git checkout dev
+ 1741  vim lib/opts.py
+ 1742  python test.py ctdet --exp_id resnet50_dense_wh --flip_test --K 150 --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/resnet50_dense_wh/model_best.pth --not_prefetch_test --gpus 6 --arch res_50
+ 1743  tmux attach
+ 1744  tmux ls
+ 1745  byobu
+ 1746  tmux attach
+ 1747  :qDDDDDCCC:q
+ 1748  tmux attach -t leobeanDDD      print('######### sample/ctdet.py, mid mid transform, bbox=%s' %(str(bbox)))
+ 1749  dlsjknamesp
+ 1750  ls
+ 1751  ll
+ 1752  ls
+ 1753  ll
+ 1754  top
+ 1755  cd 
+ 1756  cd
+ 1757  \cd ..
+ 1758  source activate CenterNet
+ 1759  vim temp_res.txt 
+ 1760  nvidia-smi 
+ 1761  cd ../../DOTA_devkit/
+ 1762  ll
+ 1763  vim dota-v1.5_evaluation_task1.py 
+ 1764  echo ${pfName##*/} | sed -r 's/^(.*)\..*$/\1/g'
+ 1765  echo ${./} | sed -r 's/^(.*)\..*$/\1/g'
+ 1766  byobu attach
+ 1767  cd project/dota/CenterNet/src/
+ 1768  python main.py ctdet --exp_id oriented_resnet50 --batch_size 2 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 7 --arch res_50 --not_rand_crop --val_intervals 15 --K 150 > temp_res.txt
+ 1769  python main.py ctdet --exp_id oriented_resnet50 --batch_size 1 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 7 --arch res_50 --not_rand_crop --val_intervals 15 > temp_res.txt
+ 1770  source activate CenterNet
+ 1771  python main.py ctdet --exp_id oriented_resnet50 --batch_size 1 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 7 --arch res_50 --not_rand_crop --val_intervals 15 > temp_res.txt
+ 1772  nvidia-smi 
+ 1773  top
+ 1774  nvidia-smi 
+ 1775  top
+ 1776  nvidia-smi 
+ 1777  top
+ 1778  nvidia-smi 
+ 1779  top
+ 1780  cd project/dota/CenterNet/src/
+ 1781  source activate CenterNet
+ 1782  cd ..
+ 1783  git branch
+ 1784  git status
+ 1785  git add .
+ 1786  git status
+ 1787  git reset HEAD src/temp_res.txt
+ 1788  git status
+ 1789  git commit -m 'train stage ok, but not real train. 12-05'
+ 1790  cd project/dota/CenterNet/src/
+ 1791  vim temp_res.txt 
+ 1792  source activate CenterNet
+ 1793  vim ../exp/ctdet/oriented_resnet50/result_dota/Task1_small-vehicle.txt 
+ 1794  vim ../exp/ctdet/oriented_resnet50/result_dota/Task1_large-vehicle.txt 
+ 1795  ll ../exp/ctdet/oriented_resnet50/result_dota/
+ 1796  vim ../exp/ctdet/oriented_resnet50/result_dota/Task1_ship.txt 
+ 1797  vim /data/konglingbin/DOTA/DOTA_oriented/train_small/labelTxt/P1005__1__0___0.txt 
+ 1798  vim /data/konglingbin/DOTA/DOTA_oriented/train_small/labelTxt/P1023__1__2472___0.txt 
+ 1799  cd project/dota/CenterNet/src/
+ 1800  source activate CenterNet
+ 1801  vim ../../DOTA_devkit/trainsmalltxt.txt 
+ 1802  rm ../../DOTA_devkit/trainsmalltxt.txt 
+ 1803  vim ../../DOTA_devkit/trainsmalltxt.txt 
+ 1804  python main.py ctdet --exp_id oriented_resnet50 --batch_size 1 --master_batch 1 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 25
+ 1805  vim lib/opts.py 
+ 1806  python main.py ctdet --exp_id oriented_resnet50 --batch_size 1 --master_batch 1 --lr 1.25e-4 --num_epochs 200 --lr_step '100,150' --gpus 0 --arch res_50 --not_rand_crop --val_intervals 25
+ 1807  source activate CenterNet
+ 1808  vim temp_res.txt 
+ 1809  nvidia-smi 
+ 1810  cd ../../DOTA_devkit/
+ 1811  ll
+ 1812  vim dota-v1.5_evaluation_task1.py 
+ 1813  echo ${pfName##*/} | sed -r 's/^(.*)\..*$/\1/g'
+ 1814  echo ${./} | sed -r 's/^(.*)\..*$/\1/g'
+ 1815  python
+ 1816  mv trainsmalltxt.txt /data/konglingbin/DOTA/DOTA_oriented/train_small/
+ 1817  vim dota-v1.5_evaluation_task1.py 
+ 1818  python dota-v1.5_evaluation_task1.py 
+ 1819  vim dota-v1.5_evaluation_task1.py 
+ 1820  python dota-v1.5_evaluation_task1.py 
+ 1821  vim dota-v1.5_evaluation_task1.py 
+ 1822  python dota-v1.5_evaluation_task1.py 
+ 1823  vim dota-v1.5_evaluation_task1.py 
+ 1824  python dota-v1.5_evaluation_task1.py 
+ 1825  vim dota-v1.5_evaluation_task1.py 
+ 1826  python dota-v1.5_evaluation_task1.py 
+ 1827  vim DOTA2COCO_oriented.py 
+ 1828  python DOTA2COCO_oriented.py 
+ 1829  vim /data/konglingbin/DOTA/DOTA_oriented/train_only_one/DOTA_train_only_one_split.json 
+ 1830  vim DOTA2COCO_oriented.py 
+ 1831  vim ResultMerge.py 
+ 1832  python ResultMerge.py 
+ 1833  vim dota-v1.5_evaluation_task1.py 
+ 1834  python dota-v1.5_evaluation_task1.py 
+ 1835  vim /data/konglingbin/DOTA/DOTA_oriented/train_only_one/labelTxt/P1023__1__2472___0.txt 
+ 1836  nvidia-smi
+ 1837  top
+ 1838  nvidia-smi
+ 1839  cp /data/konglingbin/DOTA/DOTA_oriented/val_split_gap200/images/P10* /data/konglingbin/DOTA/DOTA_oriented/train_small/images/
+ 1840  cp /data/konglingbin/DOTA/DOTA_oriented/val_split_gap200/labelTxt/P10* /data/konglingbin/DOTA/DOTA_oriented/train_small/labelTxt/
+ 1841  top
+ 1842  cd ../../DOTA_devkit/
+ 1843  ll
+ 1844  vim DOTA2COCO_oriented.py 
+ 1845  python DOTA2COCO_oriented.py 
+ 1846  source activate CenterNet
+ 1847  python DOTA2COCO_oriented.py 
+ 1848  mv /data/konglingbin/DOTA/DOTA_oriented/DOTA_train_small_split.json /data/konglingbin/DOTA/DOTA_oriented/train_small/DOTA_train_small_split.json
+ 1849  cd ../CenterNet/src/
+ 1850  ll
+ 1851  ll ../data/dota/
+ 1852  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_small/images ../data/dota/DOTA_train.json
+ 1853  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_small/images ../data/dota/train
+ 1854  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_small/images ../data/dota/val
+ 1855  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_small/images ../data/dota/test
+ 1856  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_small/DOTA_train_small_split.json ../data/dota/DOTA_train.json
+ 1857  cp /data/konglingbin/DOTA/DOTA_oriented/train_small/DOTA_train_small_split.json /data/konglingbin/DOTA/DOTA_oriented/train_small/DOTA_val_small_split.json 
+ 1858  cp /data/konglingbin/DOTA/DOTA_oriented/train_small/DOTA_train_small_split.json /data/konglingbin/DOTA/DOTA_oriented/train_small/DOTA_test_small_split.json 
+ 1859  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_small/DOTA_val_small_split.json ../data/dota/DOTA_val.json
+ 1860  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_small/DOTA_test_small_split.json ../data/dota/DOTA_test.json
+ 1861  ll ../data/dota/
+ 1862  python main.py ctdet --exp_id oriented_resnet50 --batch_size 12 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 2,3,4,5,6,7 --arch res_50 --not_rand_crop --val_intervals 15
+ 1863  vim lib/opts.py 
+ 1864  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50
+ 1865  top
+ 1866  nvidia-smi 
+ 1867  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50
+ 1868  vim lib/models/decode.py 
+ 1869  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50
+ 1870  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50 > temp_res.txt 
+ 1871  vim temp_res.txt 
+ 1872  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50 > temp_res.txt 
+ 1873  vim temp_res.txt 
+ 1874  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50 > temp_res.txt 
+ 1875  vim temp_res.txt 
+ 1876  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50 > temp_res.txt 
+ 1877  vim temp_res.txt 
+ 1878  vim lib/utils/post_process.py 
+ 1879  git branch
+ 1880  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50 > temp_res.txt 
+ 1881  ll ../../CenterNet_oriented/data/dota/
+ 1882  vim temp_res.txt 
+ 1883  python test.py ctdet --exp_id oriented_resnet50  --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/oriented_resnet50/model_best.pth --not_prefetch_test --gpus 1 --arch res_50 > temp_res.txt 
+ 1884  vim temp_res.txt 
+ 1885  history 
+ 1886  history | grep main
+ 1887  source activate CenterNet
+ 1888  ll ../data/dota/
+ 1889  lll
+ 1890  ll
+ 1891  ll ../data/dota/
+ 1892  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_only_one/images ../data/dota/train
+ 1893  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_only_one/images ../data/dota/val
+ 1894  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_only_one/images ../data/dota/test
+ 1895  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_only_one/DOTA_train_only_one_split.json ../data/dota/DOTA_train.json 
+ 1896  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_only_one/DOTA_train_only_one_split.json ../data/dota/DOTA_val.json 
+ 1897  ln -snf /data/konglingbin/DOTA/DOTA_oriented/train_only_one/DOTA_train_only_one_split.json ../data/dota/DOTA_test.json 
+ 1898  vim /data/konglingbin/DOTA/DOTA_oriented/train_only_one/trainonlyonetxt.txt
+ 1899  nvidia-smi 
+ 1900  top
+ 1901  kill -9 30451
+ 1902  top
+ 1903  nvidia-smi 
+ 1904  top
+ 1905  tmux ls
+ 1906  byobu ls
+ 1907  nvidia-smi 
+ 1908  top
+ 1909  nvidia-smi 
+ 1910  kill -0 32544
+ 1911  kill -9 32544
+ 1912  nvidia-smi 
+ 1913  vim ../../DOTA_devkit/dota_utils_testResults2preTask1.py 
+ 1914  source activate CenterNet
+ 1915  cd ..
+ 1916  cd ../CenterNet_oriented/
+ 1917  ll
+ 1918  mkdir -r ../CenterNet/data/dota
+ 1919  mkdir ../CenterNet/data/dota
+ 1920  mkdir data/dota
+ 1921  vim src/lib/datasets/sample/ctdet.py 
+ 1922  cd data/dota/
+ 1923  ll
+ 1924  ln -s /data/konglingbin/DOTA/DOTA/train_split_gap200/images train
+ 1925  ln -s /data/konglingbin/DOTA/DOTA/val_split_gap200/images val
+ 1926  ln -s /data/konglingbin/DOTA/DOTA/test_split_gap200/images test
+ 1927  ln -s /data/konglingbin/DOTA/DOTA/DOTA_test_split_gap200.json DOTA_train.json
+ 1928  ln -s /data/konglingbin/DOTA/DOTA/DOTA_val_split_gap200.json DOTA_val.json
+ 1929  ln -s /data/konglingbin/DOTA/DOTA/DOTA_test_split_gap200.json DOTA_test.json
+ 1930  cd ../..
+ 1931  ll
+ 1932  cd src/
+ 1933  ll
+ 1934  vim main.py 
+ 1935  python main.py ctdet --exp_id dla34 --batch_size 12 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 2,3,4,5,6,7 --arch dla_34 --not_rand_crop --val_intervals 15
+ 1936  cd lib/models/networks/DCNv2/
+ 1937  LL
+ 1938  ll
+ 1939  ./make.sh
+ 1940  cd ../../../..
+ 1941  python main.py ctdet --exp_id dla34 --batch_size 12 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 2,3,4,5,6,7 --arch dla_34 --not_rand_crop --val_intervals 15
+ 1942  ll ../data/dota/
+ 1943  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_train_split_gap200.json DOTA_train.json
+ 1944  ll ../data/dota/
+ 1945  ll
+ 1946  rm DOTA_train.json 
+ 1947  ln -snf /data/konglingbin/DOTA/DOTA/DOTA_train_split_gap200.json ../data/dota/DOTA_train.json
+ 1948  ll ../data/dota/
+ 1949  python main.py ctdet --exp_id dla34 --batch_size 12 --master_batch 2 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 2,3,4,5,6,7 --arch dla_34 --not_rand_crop --val_intervals 15
+ 1950  ll ../data/dota/
+ 1951  python main.py ctdet --exp_id dla34 --batch_size 28 --master_batch 4 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 4,5,6,7 --arch dla_34 --not_rand_crop --val_intervals 25
+ 1952  python main.py ctdet --exp_id dla34 --batch_size 16 --master_batch 4 --lr 1.25e-4 --num_epochs 100 --lr_step '75,90' --gpus 4,5,6,7 --arch dla_34 --not_rand_crop --val_intervals 25
+ 1953  python test.py ctdet --exp_id dla_34 --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet_oriented/exp/ctdet/dla34/model_last.pth --not_prefetch_test --gpus 7 --arch dla_34
+ 1954  cd lib/external/
+ 1955  make
+ 1956  cd ../..
+ 1957  python test.py ctdet --exp_id dla_34 --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet_oriented/exp/ctdet/dla34/model_last.pth --not_prefetch_test --gpus 7 --arch dla_34
+ 1958  python test.py ctdet --exp_id dla34 --test_scales 0.5,0.75,1,1.25,1.5 --load_model /home/konglingbin/project/dota/CenterNet_oriented/exp/ctdet/dla34/model_last.pth --not_prefetch_test --gpus 7 --arch dla_34
+ 1959  byobu attach
+ 1960  exit
+ 1961  history
+ 1962  cd project/dota/CenterNet/src
+ 1963  source activate CenterNet
+ 1964  history > cmd_history.txt
