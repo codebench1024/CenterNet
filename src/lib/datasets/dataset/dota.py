@@ -11,7 +11,7 @@ import os
 import torch.utils.data as data
 
 class DOTA(data.Dataset):
-  num_classes = 16
+  num_classes = 15
   default_resolution = [1024, 1024]
   mean = np.array([0.40789654, 0.44719302, 0.47026115],
                    dtype=np.float32).reshape(1, 1, 3)
@@ -29,8 +29,8 @@ class DOTA(data.Dataset):
     self.max_objs = 128
     self.class_name = ['__background__', 'plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle',
                         'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',
-                        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
-    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+                        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
+    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}
     self.voc_color = [(v // 32 * 64 + 64, (v // 8) % 4 * 64, v % 8 * 32) \
                       for v in range(1, self.num_classes + 1)]
@@ -129,11 +129,13 @@ class DOTA(data.Dataset):
     # result_json = os.path.join(save_dir, "results.json")
     # detections  = self.convert_eval_format(results)
     # json.dump(detections, open(result_json, "w"))
+    
     self.save_results_dota(results, save_dir)
-    '''
+    self.save_results(results, save_dir)
+    
     coco_dets = self.coco.loadRes('{}/results.json'.format(save_dir))
     coco_eval = COCOeval(self.coco, coco_dets, "bbox")
     coco_eval.evaluate()
     coco_eval.accumulate()
     coco_eval.summarize()
-    '''
+    

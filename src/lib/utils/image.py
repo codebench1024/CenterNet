@@ -140,6 +140,34 @@ def draw_umich_gaussian(heatmap, center, radius, k=1):
     np.maximum(masked_heatmap, masked_gaussian * k, out=masked_heatmap)
   return heatmap
 
+def draw_mix_gaussian(heatmap, center, radius, obj_h=0, obj_w=0, k=1):
+    # this function draw gaussian by object height and width, not by one radius
+    #diameter = 2 * radius + 1
+    #gaussian = gaussian2D((diameter, diameter), sigma=diameter / 6)
+
+    radius_h, radius_w = obj_h//2, obj_w//2
+    radius_h, radius_w = int(radius_h), int(radius_w)
+    sigma_h, sigma_w = (radius_h*2+1)/6, (radius_w*2+1)/6
+    shape = (2*radius_h+1, 2*radius_w+1)
+    m, n = [(ss - 1.) / 2. for ss in shape]
+    y, x = np.ogrid[-m:m + 1, -n:n + 1]
+
+    gaussian = np.dot(np.exp((-y * y) / (2*sigma_h*sigma_h)), np.exp((-x * x) / (2*sigma_w*sigma_w)))
+    gaussian = np.around(gaussian, decimals=5)
+
+    x, y = int(center[0]), int(center[1])
+
+    height, width = heatmap.shape[0:2]
+
+    left, right = min(x, radius_w), min(width - x, radius_w + 1)
+    top, bottom = min(y, radius_h), min(height - y, radius_h + 1)
+
+    masked_heatmap = heatmap[y - top:y + bottom, x - left:x + right]
+    masked_gaussian = gaussian[radius_h - top:radius_h + bottom, radius_w - left:radius_w + right]
+    if min(masked_gaussian.shape) > 0 and min(masked_heatmap.shape) > 0:  # TODO debug
+        np.maximum(masked_heatmap, masked_gaussian * k, out=masked_heatmap)
+    return heatmap
+
 def draw_dense_reg(regmap, heatmap, center, value, radius, is_offset=False):
   diameter = 2 * radius + 1
   gaussian = gaussian2D((diameter, diameter), sigma=diameter / 6)

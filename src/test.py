@@ -88,7 +88,7 @@ def test(opt):
   Logger(opt)
   Detector = detector_factory[opt.task]
   
-  split = 'test' # 'val' if not opt.trainval else 'test'
+  split = 'val' if not opt.trainval else 'test'
   dataset = Dataset(opt, split)
   detector = Detector(opt)
 

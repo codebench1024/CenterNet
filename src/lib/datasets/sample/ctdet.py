@@ -10,7 +10,7 @@ import cv2
 import os
 from utils.image import flip, color_aug
 from utils.image import get_affine_transform, affine_transform
-from utils.image import gaussian_radius, draw_umich_gaussian, draw_msra_gaussian
+from utils.image import gaussian_radius, draw_umich_gaussian, draw_msra_gaussian, draw_mix_gaussian
 from utils.image import draw_dense_reg
 import math
 
@@ -114,6 +114,9 @@ class CTDetDataset(data.Dataset):
           [(bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2], dtype=np.float32)
         ct_int = ct.astype(np.int32)
         draw_gaussian(hm[cls_id], ct_int, radius)
+        # this is my own gaussian generator. consider width and height of object.
+        #draw_mix_gaussian(hm[cls_id], ct_int, radius, h, w)
+        
         wh[k] = 1. * w, 1. * h
         ind[k] = ct_int[1] * output_w + ct_int[0]
         reg[k] = ct - ct_int
