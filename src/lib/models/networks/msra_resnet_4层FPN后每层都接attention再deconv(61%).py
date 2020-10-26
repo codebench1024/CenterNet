@@ -171,8 +171,11 @@ class PoseResNet(nn.Module):
         self.fpn_p4 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
         self.fpn_p5 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
 
-        self.atten = ChannelAttention(256 * 3)
-        self.final_conv = nn.Conv2d(768, 256, kernel_size=1, stride=1, padding=0)
+        self.atten1 = ChannelAttention(256)
+        self.atten2 = ChannelAttention(256)
+        self.atten3 = ChannelAttention(256)
+        self.atten4 = ChannelAttention(256 * 4)
+        # self.final_conv = nn.Conv2d(1024, 256, kernel_size=1, stride=1, padding=0)
 
         # used for deconv layers
         self.inplanes = 256
@@ -200,7 +203,7 @@ class PoseResNet(nn.Module):
           num_output = self.heads[head]
           if head_conv > 0:
             fc = nn.Sequential(
-                nn.Conv2d(256, head_conv,
+                nn.Conv2d(1024, head_conv,
                   kernel_size=3, padding=1, bias=True),
                 nn.ReLU(inplace=True),
                 nn.Conv2d(head_conv, num_output, 
@@ -308,14 +311,18 @@ class PoseResNet(nn.Module):
         P4 = self.fpn_p4(P4)
         P5 = self.fpn_p5(P5)
 
+
         # x = self.deconv_layers(x)
+        P3 = self.atten1(P3)
         P3 = self.deconv_layers1(P3)
+        P4 = self.atten2(P4)
         P4 = self.deconv_layers2(P4)
-        # P5 = self.deconv_layers3(P5)
-        P = [P2, P3, P4]
+        P5 = self.atten3(P5)
+        P5 = self.deconv_layers3(P5)
+        P = [P2, P3, P4, P5]
         P = torch.cat(P, dim=1)
-        final = self.atten(P)
-        final = self.final_conv(final)
+        final = self.atten4(P)
+        # final = self.final_conv(final)
         rets = []
         for i in range(1):
             ret = {}

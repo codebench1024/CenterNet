@@ -138,6 +138,42 @@ class Bottleneck(nn.Module):
         return out
 
 
+class Self_Attn(nn.Module):
+    """ Self attention Layer"""
+
+    def __init__(self, in_dim):
+        super(Self_Attn, self).__init__()
+        self.chanel_in = in_dim
+        # self.activation = activation
+
+        self.query_conv = nn.Conv2d(in_channels=in_dim, out_channels=in_dim // 8, kernel_size=1)
+        self.key_conv = nn.Conv2d(in_channels=in_dim, out_channels=in_dim // 8, kernel_size=1)
+        self.value_conv = nn.Conv2d(in_channels=in_dim, out_channels=in_dim, kernel_size=1)
+        self.gamma = nn.Parameter(torch.zeros(1))
+
+        self.softmax = nn.Softmax(dim=-1)  #
+
+    def forward(self, x):
+        """
+            inputs :
+                x : input feature maps( B X C X W X H)
+            returns :
+                out : self attention value + input feature
+                attention: B X N X N (N is Width*Height)
+        """
+        m_batchsize, C, width, height = x.size()
+        proj_query = self.query_conv(x).view(m_batchsize, -1, width * height).permute(0, 2, 1)  # B X CX(N)
+        proj_key = self.key_conv(x).view(m_batchsize, -1, width * height)  # B X C x (*W*H)
+        energy = torch.bmm(proj_query, proj_key)  # transpose check
+        attention = self.softmax(energy)  # BX (N) X (N)
+        proj_value = self.value_conv(x).view(m_batchsize, -1, width * height)  # B X C X N
+
+        out = torch.bmm(proj_value, attention.permute(0, 2, 1))
+        out = out.view(m_batchsize, C, width, height)
+
+        out = self.gamma * out + x
+        return out, attention
+
 class PoseResNet(nn.Module):
 
     def __init__(self, block, layers, heads, head_conv, **kwargs):
@@ -171,8 +207,8 @@ class PoseResNet(nn.Module):
         self.fpn_p4 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
         self.fpn_p5 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
 
-        self.atten = ChannelAttention(256 * 3)
-        self.final_conv = nn.Conv2d(768, 256, kernel_size=1, stride=1, padding=0)
+        self.atten = ChannelAttention(256)
+        self.final_conv = nn.Conv2d(1024, 256, kernel_size=1, stride=1, padding=0)
 
         # used for deconv layers
         self.inplanes = 256
@@ -259,7 +295,6 @@ class PoseResNet(nn.Module):
             'ERROR: num_deconv_layers is different len(num_deconv_filters)'
         assert num_layers == len(num_kernels), \
             'ERROR: num_deconv_layers is different len(num_deconv_filters)'
-
         layers = []
         for i in range(num_layers):
             kernel, padding, output_padding = \
@@ -291,7 +326,7 @@ class PoseResNet(nn.Module):
         C3 = self.layer2(C2)
         C4 = self.layer3(C3)
         C5 = self.layer4(C4)
-        x = C5
+        # x = C5
 
         P5 = self.fpn_c5p5(C5)
         P4 = self.fpn_c4p4(C4) + F.upsample(P5,
@@ -304,18 +339,26 @@ class PoseResNet(nn.Module):
         # Attach 3x3 conv to all P layers to get the final feature maps.
         # P2 is 256, P3 is 128, P4 is 64, P5 is 32
         P2 = self.fpn_p2(P2)
+        # P2 = self.conv_p2(P2)
         P3 = self.fpn_p3(P3)
+        # P3 = self.conv_p3(P3)
         P4 = self.fpn_p4(P4)
+        # P4 = self.conv_p4(P4)
         P5 = self.fpn_p5(P5)
+        # P5 = self.conv_p5(P5)
 
         # x = self.deconv_layers(x)
+        # P3 = self.atten(P3)
+
         P3 = self.deconv_layers1(P3)
+        # P4 = self.atten(P4)
         P4 = self.deconv_layers2(P4)
-        # P5 = self.deconv_layers3(P5)
-        P = [P2, P3, P4]
+        # P5 = self.atten(P5)
+        P5 = self.deconv_layers3(P5)
+        P = [P2, P3, P4, P5]
         P = torch.cat(P, dim=1)
-        final = self.atten(P)
-        final = self.final_conv(final)
+        final = self.final_conv(P)
+        final = self.atten(final)
         rets = []
         for i in range(1):
             ret = {}
@@ -382,16 +425,54 @@ class ChannelAttention(nn.Module):
         self.sigmoid = nn.Sigmoid()
         self.fc1 = nn.Linear(C, int(C / 4))
         self.fc2 = nn.Linear(int(C / 4), C)
+        self.weight = torch.nn.Parameter(torch.FloatTensor(C), requires_grad=True)
+
 
     def forward(self, x):
-        avg_pool = F.avg_pool2d(x, kernel_size=x.size()[-1])
-        avg_pool = avg_pool.permute(0, 2, 3, 1)
-        fc = self.fc1(avg_pool)
-        relu = self.relu(fc)
-        fc = self.fc2(relu).permute(0, 3, 1, 2)
-        atten = self.sigmoid(fc)
+        # avg_pool = F.avg_pool2d(x, kernel_size=x.size()[-1])
+        # avg_pool = avg_pool.permute(0, 2, 3, 1)
+        # fc = self.fc1(avg_pool)
+        # relu = self.relu(fc)
+        # fc = self.fc2(relu).permute(0, 3, 1, 2)
+        # atten = self.sigmoid(fc)
+        atten = self.sigmoid(self.weight)
         output = atten * x
         return output
+
+
+class SpatialAttention(nn.Module):
+    def __init__(self, kernel_size=7):
+        super(SpatialAttention, self).__init__()
+
+        assert kernel_size in (3, 7), 'kernel size must be 3 or 7'
+        padding = 3 if kernel_size == 7 else 1
+
+        self.conv1 = nn.Conv2d(2, 1, kernel_size, padding=padding, bias=False)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        avg_out = torch.mean(x, dim=1, keepdim=True)
+        max_out, _ = torch.max(x, dim=1, keepdim=True)
+        x = torch.cat([avg_out, max_out], dim=1)
+        x = self.conv1(x)
+        return self.sigmoid(x)
+
+
+class MixedAttettion(nn.Module):
+    def __init__(self, C, kernel_size):
+        super(MixedAttettion, self).__init__()
+        self.spatial_att = SpatialAttention()
+        self.channel_att = ChannelAttention(C)
+        self.gamma1 = nn.Parameter(torch.zeros(1))
+        self.gamma2 = nn.Parameter(torch.zeros(1))
+
+    def forward(self, x):
+        f1 = self.channel_att(x)
+        f2 = self.spatial_att(x)
+        out = self.gamma1 * f1 * x + self.gamma2 * f2
+        # out = self.gamma1 * f1 * x
+        # out = torch.cat((f1,f2,x), dim = 1)
+        return out
 
 resnet_spec = {18: (BasicBlock, [2, 2, 2, 2]),
                34: (BasicBlock, [3, 4, 6, 3]),

@@ -28,7 +28,7 @@ class CtdetLoss(torch.nn.Module):
   def forward(self, outputs, batch):
     opt = self.opt
     hm_loss, wh_loss, off_loss = 0, 0, 0
-    for s in range(opt.num_stacks):
+    for s in range(len(outputs)):
       output = outputs[s]
       if not opt.mse_loss:
         output['hm'] = _sigmoid(output['hm'])
@@ -46,7 +46,7 @@ class CtdetLoss(torch.nn.Module):
           batch['ind'].detach().cpu().numpy(), 
           output['reg'].shape[3], output['reg'].shape[2])).to(opt.device)
 
-      hm_loss += self.crit(output['hm'], batch['hm']) / opt.num_stacks
+        hm_loss += self.crit(output['hm'], batch['hm'][:,s,:,:]) / opt.num_stacks
       if opt.wh_weight > 0:
         if opt.dense_wh:
           mask_weight = batch['dense_wh_mask'].sum() + 1e-4
@@ -60,12 +60,12 @@ class CtdetLoss(torch.nn.Module):
             batch['ind'], batch['cat_spec_wh']) / opt.num_stacks
         else:
           wh_loss += self.crit_reg(
-            output['wh'], batch['reg_mask'],
-            batch['ind'], batch['wh']) / opt.num_stacks
+            output['wh'], batch['reg_mask'][:, s, :],
+            batch['ind'][:, s, :], batch['wh'][:, s, :, :]) / opt.num_stacks
       
       if opt.reg_offset and opt.off_weight > 0:
-        off_loss += self.crit_reg(output['reg'], batch['reg_mask'],
-                             batch['ind'], batch['reg']) / opt.num_stacks
+        off_loss += self.crit_reg(output['reg'], batch['reg_mask'][:, s, :],
+                             batch['ind'][:, s, :], batch['reg'][:, s, :, :]) / opt.num_stacks
         
     loss = opt.hm_weight * hm_loss + opt.wh_weight * wh_loss + \
            opt.off_weight * off_loss

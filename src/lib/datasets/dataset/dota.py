@@ -26,10 +26,11 @@ class DOTA(data.Dataset):
 
     self.annot_path = os.path.join(self.data_dir, 'DOTA_{}.json').format(split)
 
-    self.max_objs = 128
+    self.max_objs = opt.K
     self.class_name = ['__background__', 'plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle',
                         'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',
                         'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
+    #self.class_name = ['__background__', 'plane', 'ship', 'storage-tank', 'baseball-diamond', 'tennis-court', 'basketball-court', 'ground-track-field', 'harbor', 'bridge', 'large-vehicle', 'small-vehicle', 'helicopter', 'roundabout', 'soccer-ball-field', 'swimming-pool']
     self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}
     self.voc_color = [(v // 32 * 64 + 64, (v // 8) % 4 * 64, v % 8 * 32) \
@@ -116,6 +117,7 @@ class DOTA(data.Dataset):
           detections.append(detection)
     if not os.path.exists(os.path.join(save_dir, 'result_dota')):
       os.makedirs(os.path.join(save_dir, 'result_dota'))
+    #for cat_id in range(1, self.num_classes+1):
     for cat_id in range(1, self.num_classes+1):
       with open('%s/result_dota/Task2_%s.txt' % (save_dir,self.class_name[cat_id]), 'w') as file_writer:
         for detect_temp in detections:

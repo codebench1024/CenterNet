@@ -49,6 +49,17 @@ def load_model(model, model_path, optimizer=None, resume=False,
         'pre-trained weight. Please make sure ' + \
         'you have correctly specified --arch xxx ' + \
         'or set the correct --num_classes for your own dataset.'
+  '''
+  newstate = dict()
+  for k in state_dict.keys():
+    if 'encoder' in k:
+      newstate[k.replace('encoder.', '')] = state_dict[k]
+    elif 'decoder.decoder' in k:
+      newstate[k.replace('decoder.decoder','deconv_layers')] = state_dict[k]
+    else:
+      newstate[k.replace('decoder.','')] = state_dict[k]
+  state_dict = newstate
+  '''
   for k in state_dict:
     if k in model_state_dict:
       if state_dict[k].shape != model_state_dict[k].shape:

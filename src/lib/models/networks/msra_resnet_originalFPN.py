@@ -171,8 +171,7 @@ class PoseResNet(nn.Module):
         self.fpn_p4 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
         self.fpn_p5 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
 
-        self.atten = ChannelAttention(256 * 3)
-        self.final_conv = nn.Conv2d(768, 256, kernel_size=1, stride=1, padding=0)
+        self.final_conv = nn.Conv2d(1024, 256, kernel_size=1, stride=1, padding=0)
 
         # used for deconv layers
         self.inplanes = 256
@@ -291,7 +290,7 @@ class PoseResNet(nn.Module):
         C3 = self.layer2(C2)
         C4 = self.layer3(C3)
         C5 = self.layer4(C4)
-        x = C5
+        # x = C5
 
         P5 = self.fpn_c5p5(C5)
         P4 = self.fpn_c4p4(C4) + F.upsample(P5,
@@ -311,11 +310,10 @@ class PoseResNet(nn.Module):
         # x = self.deconv_layers(x)
         P3 = self.deconv_layers1(P3)
         P4 = self.deconv_layers2(P4)
-        # P5 = self.deconv_layers3(P5)
-        P = [P2, P3, P4]
+        P5 = self.deconv_layers3(P5)
+        P = [P2, P3, P4, P5]
         P = torch.cat(P, dim=1)
-        final = self.atten(P)
-        final = self.final_conv(final)
+        final = self.final_conv(P)
         rets = []
         for i in range(1):
             ret = {}
@@ -374,24 +372,6 @@ class PoseResNet(nn.Module):
             print('=> please download it first')
             raise ValueError('imagenet pretrained model does not exist')
 
-
-class ChannelAttention(nn.Module):
-    def __init__(self, C):
-        super(ChannelAttention, self).__init__()
-        self.relu = nn.ReLU()
-        self.sigmoid = nn.Sigmoid()
-        self.fc1 = nn.Linear(C, int(C / 4))
-        self.fc2 = nn.Linear(int(C / 4), C)
-
-    def forward(self, x):
-        avg_pool = F.avg_pool2d(x, kernel_size=x.size()[-1])
-        avg_pool = avg_pool.permute(0, 2, 3, 1)
-        fc = self.fc1(avg_pool)
-        relu = self.relu(fc)
-        fc = self.fc2(relu).permute(0, 3, 1, 2)
-        atten = self.sigmoid(fc)
-        output = atten * x
-        return output
 
 resnet_spec = {18: (BasicBlock, [2, 2, 2, 2]),
                34: (BasicBlock, [3, 4, 6, 3]),
