@@ -83,14 +83,48 @@ def tiff_png(file_path, png_dir_path=""):
         dir_name, file_name = os.path.split(file_path)
         to_write_png_path = os.path.join(dir_name, "%s.png" % file_name.split(".")[0])
     else:
-        to_write_png_path = os.path.join(png_dir_path, os.path.basename(file_path) + ".png")
+        to_write_png_path = os.path.join(png_dir_path, os.path.basename(file_path).split(".")[0] + ".png")
     cv2.imwrite(to_write_png_path, png_array)
 
 
-if __name__ == '__main__':
+
+def main_tiff_png():
     file_path = 'E:\\IMAGE_VV_SRA_scan_007.tif'
     dataset = gdal.Open(file_path)
     ds_array = dataset.ReadAsArray()
     umean, uvar, ustd = np.mean(ds_array), np.var(ds_array), np.std(ds_array)
     print(umean, uvar, ustd, np.max(ds_array), np.min(ds_array), np.size(ds_array))
     tiff_png(file_path)
+
+
+
+
+
+def one_channel_to_three(source_dir, det_dir):
+    '''
+      将png单通道图像，转成三通道
+      :param source_dir: 原文件夹，包含所有单通道png图像
+      :param det_dir: 目标文件夹，将转换后的多通道png图像写入此文件夹
+    '''
+    filenames = os.listdir(source_dir)
+    for filename in filenames:
+        ds_array = cv2.imread(os.path.join(source_dir, filename))
+        # ds_array = np.expand_dims(ds_array, axis=2)
+        # ds_array_three = np.concatenate((ds_array, ds_array, ds_array), axis=-1)
+        ds_array_three = np.array([ds_array, ds_array, ds_array])
+        cv2.imwrite(os.path.join(det_dir, filename), ds_array_three)
+
+
+def main_one_channel_to_three():
+    source_dir = "E:\\SAR_test\\abc"
+    det_dir = "E:\\SAR_test\\output"
+    one_channel_to_three(source_dir, det_dir)
+
+if __name__ == '__main__':
+    # main_tiff_png()
+    main_one_channel_to_three()
+
+
+
+
+

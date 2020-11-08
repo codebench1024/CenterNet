@@ -17,9 +17,9 @@ def groundtruth_plane_to_dota(source_dir, dest_dir):
                     line = line.strip().split()
                     if len(line) < 4:
                         continue
-                    file2.write("%s %s %s %s %s %s %s %s %s 1" % (line[1], line[2], line[3], line[2], line[3], line[4], line[1], line[4], line[0]))
+                    file2.write("%s %s %s %s %s %s %s %s %s 1\n" % (line[1], line[2], line[3], line[2], line[3], line[4], line[1], line[4], line[0]))
 
-def ground_dota_to_plane(source_dir, dest_dir):
+def groundtruth_dota_to_plane(source_dir, dest_dir):
     '''
     source_dir -- dota的groundtruth: x1 y1 x2 y1 x2 y2 x1 y2 label is_difficult
     dest_dir   -- SAR plane的groundtruth: label x1 y1 x2 y2
@@ -27,3 +27,7 @@ def ground_dota_to_plane(source_dir, dest_dir):
     '''
 
 
+if __name__ == '__main__':
+    source = "F:\\新建文件夹"
+    det = "F:\\after"
+    groundtruth_plane_to_dota(source, det)

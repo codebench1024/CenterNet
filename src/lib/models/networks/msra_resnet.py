@@ -366,7 +366,7 @@ class PoseResNet(nn.Module):
                               nn.init.constant_(m.bias, 0)
             #pretrained_state_dict = torch.load(pretrained)
             url = model_urls['resnet{}'.format(num_layers)]
-            pretrained_state_dict = model_zoo.load_url(url)
+            pretrained_state_dict = model_zoo.load_url(url, model_dir=None)
             print('=> loading pretrained model {}'.format(url))
             self.load_state_dict(pretrained_state_dict, strict=False)
         else:

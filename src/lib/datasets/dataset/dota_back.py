@@ -11,7 +11,7 @@ import os
 import torch.utils.data as data
 
 class DOTA(data.Dataset):
-  num_classes = 20
+  num_classes = 15
   default_resolution = [1024, 1024]
   mean = np.array([0.40789654, 0.44719302, 0.47026115],
                    dtype=np.float32).reshape(1, 1, 3)
@@ -31,7 +31,7 @@ class DOTA(data.Dataset):
                         'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',
                         'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
     #self.class_name = ['__background__', 'plane', 'ship', 'storage-tank', 'baseball-diamond', 'tennis-court', 'basketball-court', 'ground-track-field', 'harbor', 'bridge', 'large-vehicle', 'small-vehicle', 'helicopter', 'roundabout', 'soccer-ball-field', 'swimming-pool']
-    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}
     self.voc_color = [(v // 32 * 64 + 64, (v // 8) % 4 * 64, v % 8 * 32) \
                       for v in range(1, self.num_classes + 1)]
@@ -86,7 +86,7 @@ class DOTA(data.Dataset):
   def __len__(self):
     return self.num_samples
 
-  def save_results(self, plane):
+  def save_results(self, results, save_dir):
     json.dump(self.convert_eval_format(results), 
                 open('{}/results.json'.format(save_dir), 'w'))
   
@@ -127,52 +127,17 @@ class DOTA(data.Dataset):
     return detections
 
 
-  def save_results_plane(self, results, save_dir):
-    detections = []
-    for image_id in results:
-      for cls_ind in results[image_id]:
-        category_id = self._valid_ids[cls_ind - 1]
-        for bbox in results[image_id][cls_ind]:
-          #bbox[2] -= bbox[0]
-          #bbox[3] -= bbox[1]
-          score = bbox[4]
-          bbox_out = list(map(self._to_float, bbox[0:4]))
-          image_name = self.coco.loadImgs(ids=[image_id])[0]['file_name']
-
-          detection = {
-            "image_id": int(image_id),
-            "image_name": image_name,
-            "category_id": int(category_id),
-            "category_name": self.class_name[category_id],
-            "bbox": bbox_out,
-            "score": float("{:.4f}".format(score))
-          }
-          #if len(bbox) > 5:
-          #  extreme_points = list(map(self._to_float, bbox[5:13]))
-          #  detection["extreme_points"] = extreme_points
-          detections.append(detection)
-    if not os.path.exists(os.path.join(save_dir, 'result_plane')):
-      os.makedirs(os.path.join(save_dir, 'result_plane'))
-    #for cat_id in range(1, self.num_classes+1):
-    for cat_id in range(1, self.num_classes+1):
-      with open('%s/result_plane/Task2_%s.txt' % (save_dir,self.class_name[cat_id]), 'w') as file_writer:
-        for detect_temp in detections:
-          if detect_temp['category_id'] == cat_id:
-            file_writer.write("%s %s %s %s %s %s\n" % (detect_temp['image_name'].split('.')[0], detect_temp['score'],
-                                detect_temp['bbox'][0], detect_temp['bbox'][1], detect_temp['bbox'][2], detect_temp['bbox'][3]))
-    return detections
-
   def run_eval(self, results, save_dir):
     # result_json = os.path.join(save_dir, "results.json")
     # detections  = self.convert_eval_format(results)
     # json.dump(detections, open(result_json, "w"))
     
-    self.save_results_plane(results, save_dir)
-    #self.save_results(results, save_dir)
+    self.save_results_dota(results, save_dir)
+    self.save_results(results, save_dir)
     
-    #coco_dets = self.coco.loadRes('{}/results.json'.format(save_dir))
-    #coco_eval = COCOeval(self.coco, coco_dets, "bbox")
-    #coco_eval.evaluate()
-    #coco_eval.accumulate()
-    #coco_eval.summarize()
+    coco_dets = self.coco.loadRes('{}/results.json'.format(save_dir))
+    coco_eval = COCOeval(self.coco, coco_dets, "bbox")
+    coco_eval.evaluate()
+    coco_eval.accumulate()
+    coco_eval.summarize()
     
