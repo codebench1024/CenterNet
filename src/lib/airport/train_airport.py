@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from airport.run_airport import AirportTrainer, AirportClassificationer
+from .run_airport import AirportTrainer, AirportClassificationer
 
 import torch
 import os

@@ -11,7 +11,7 @@ from torchvision import datasets, models, transforms
 import time
 import os
 import copy
-from airport.airport_classification import resnet18
+from .airport_classification import resnet18
 
 
 class AirportTrainer:
