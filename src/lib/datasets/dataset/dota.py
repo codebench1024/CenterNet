@@ -11,7 +11,7 @@ import os
 import torch.utils.data as data
 
 class DOTA(data.Dataset):
-  num_classes = 20
+  num_classes = 15
   default_resolution = [1024, 1024]
   # mean = np.array([0.40789654, 0.44719302, 0.47026115],
   #                  dtype=np.float32).reshape(1, 1, 3)
@@ -36,7 +36,7 @@ class DOTA(data.Dataset):
                         'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',
                         'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
     #self.class_name = ['__background__', 'plane', 'ship', 'storage-tank', 'baseball-diamond', 'tennis-court', 'basketball-court', 'ground-track-field', 'harbor', 'bridge', 'large-vehicle', 'small-vehicle', 'helicopter', 'roundabout', 'soccer-ball-field', 'swimming-pool']
-    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}
     self.voc_color = [(v // 32 * 64 + 64, (v // 8) % 4 * 64, v % 8 * 32) \
                       for v in range(1, self.num_classes + 1)]
@@ -132,7 +132,7 @@ class DOTA(data.Dataset):
     return detections
 
 
-  def save_results_plane(self, results, save_dir):
+  def save_results_plane(self, results, save_dir, result_conf_thresh = 0.1):
     detections = []
     for image_id in results:
       for cls_ind in results[image_id]:
@@ -158,13 +158,15 @@ class DOTA(data.Dataset):
           detections.append(detection)
     if not os.path.exists(os.path.join(save_dir, 'result_plane')):
       os.makedirs(os.path.join(save_dir, 'result_plane'))
-    #for cat_id in range(1, self.num_classes+1):
-    for cat_id in range(1, self.num_classes+1):
-      with open('%s/result_plane/Task2_%s.txt' % (save_dir,self.class_name[cat_id]), 'w') as file_writer:
-        for detect_temp in detections:
-          if detect_temp['category_id'] == cat_id:
-            file_writer.write("%s %s %s %s %s %s\n" % (detect_temp['image_name'].split('.')[0], detect_temp['score'],
-                                detect_temp['bbox'][0], detect_temp['bbox'][1], detect_temp['bbox'][2], detect_temp['bbox'][3]))
+    image_name_lists = set([d["image_name"] for d in detections])
+    for name_tmp in image_name_lists:
+      detect_temp = [d for d in detections if d["image_name"] == name_tmp and d["score"] > result_conf_thresh]
+      with open('%s/result_plane/%s.txt' % (save_dir, name_tmp.split('.')[0]), 'w') as file_writer:
+        for d_temp in detect_temp:
+          file_writer.write("%s %s %s %s %s %s\n" % (d_temp["category_name"], d_temp["score"],
+                                                     d_temp["bbox"][0], d_temp["bbox"][1],
+                                                     d_temp["bbox"][2], d_temp["bbox"][3]))
+
     return detections
 
   def run_eval(self, results, save_dir):
