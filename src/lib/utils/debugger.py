@@ -44,7 +44,7 @@ class Debugger(object):
         (255, 0, 0), (0, 0, 255)]
     elif num_classes == 80 or dataset == 'coco':
       self.names = coco_class_name
-    elif num_classes == 15 or dataset == 'dota':
+    elif num_classes == 10 or dataset == 'dota':
       self.names = dota_class_name
     elif num_classes == 20 or dataset == 'pascal':
       self.names = pascal_class_name
@@ -458,9 +458,7 @@ coco_class_name = [
      'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
      'scissors', 'teddy bear', 'hair drier', 'toothbrush'
 ]
-dota_class_name = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle',
-                        'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',
-                        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
+dota_class_name = ['airport', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J']
 #dota_class_name = ['plane', 'ship', 'storage-tank', 'baseball-diamond', 'tennis-court', 'basketball-court', 'ground-track-field', 'harbor', 'bridge', 'large-vehicle', 'small-vehicle', 'helicopter', 'roundabout', 'soccer-ball-field', 'swimming-pool']
 
 color_list = np.array(

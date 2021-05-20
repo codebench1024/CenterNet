@@ -11,7 +11,7 @@ import os
 import torch.utils.data as data
 
 class DOTA(data.Dataset):
-  num_classes = 15
+  num_classes = 9
   default_resolution = [1024, 1024]
   # mean = np.array([0.40789654, 0.44719302, 0.47026115],
   #                  dtype=np.float32).reshape(1, 1, 3)
@@ -32,11 +32,9 @@ class DOTA(data.Dataset):
     self.annot_path = os.path.join(self.data_dir, 'DOTA_{}.json').format(split)
 
     self.max_objs = opt.K
-    self.class_name = ['__background__', 'plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle',
-                        'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',
-                        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']
+    self.class_name = ['__background__', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J']
     #self.class_name = ['__background__', 'plane', 'ship', 'storage-tank', 'baseball-diamond', 'tennis-court', 'basketball-court', 'ground-track-field', 'harbor', 'bridge', 'large-vehicle', 'small-vehicle', 'helicopter', 'roundabout', 'soccer-ball-field', 'swimming-pool']
-    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    self._valid_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     self.cat_ids = {v: i for i, v in enumerate(self._valid_ids)}
     self.voc_color = [(v // 32 * 64 + 64, (v // 8) % 4 * 64, v % 8 * 32) \
                       for v in range(1, self.num_classes + 1)]
@@ -174,7 +172,7 @@ class DOTA(data.Dataset):
     # detections  = self.convert_eval_format(results)
     # json.dump(detections, open(result_json, "w"))
     
-    self.save_results_plane(results, save_dir)
+    self.save_results_dota(results, save_dir)
     #self.save_results(results, save_dir)
     
     #coco_dets = self.coco.loadRes('{}/results.json'.format(save_dir))
