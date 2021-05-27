@@ -1,3 +1,16 @@
+这是我基于CenterNet框架上进行的修改，实验、设计了很多的框架和改进，最后形成了CenterFPANet网络。在DOTA数据集和
+网络结构定义：src/lib/models/networks/msra_resnet.py。（文件名没改，里边的内容是FPNdeconv后接seattention的结构）
+使用方法：
+
+(CenterNet) konglingbin@amax:~/project/dota/CenterNet/src$ python main.py ctdet --exp_id acblock_resnet18_dota10_1024 --batch_size 8 --master_batch 4 --lr 1.25e-4 --num_epochs 121 --lr_step ‘90, 120' --gpus 6,7 --arch res_18 --not_rand_crop  --val_intervals 20
+
+
+(CenterNet) konglingbin@amax:~/project/dota/CenterNet/src$ python test.py ctdet --exp_id acblock_resnet18_dota10_1024 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/acblock_resnet18_dota10_1024/model_best.pth --K 160  --gpus 3 --arch res_18 --test_scales 0.5,0.75,1,1,25,1.5 
+
+
+
+以下是原CenterNet的介绍：
+
 # Objects as Points
 Object detection, 3D detection, and pose estimation using center point detection:
 ![](readme/fig2.png)
