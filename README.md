@@ -1,15 +1,20 @@
 这是我基于CenterNet框架上进行的修改，实验、设计了很多的框架和改进，最后形成了CenterFPANet网络。在DOTA数据集和
 网络结构定义：src/lib/models/networks/msra_resnet.py。（文件名没改，里边的内容是FPNdeconv后接seattention的结构）
-使用方法：
+## 使用方法：
 
-(CenterNet) konglingbin@amax:~/project/dota/CenterNet/src$ python main.py ctdet --exp_id acblock_resnet18_dota10_1024 --batch_size 8 --master_batch 4 --lr 1.25e-4 --num_epochs 121 --lr_step ‘90, 120' --gpus 6,7 --arch res_18 --not_rand_crop  --val_intervals 20
-
-
-(CenterNet) konglingbin@amax:~/project/dota/CenterNet/src$ python test.py ctdet --exp_id acblock_resnet18_dota10_1024 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/acblock_resnet18_dota10_1024/model_best.pth --K 160  --gpus 3 --arch res_18 --test_scales 0.5,0.75,1,1,25,1.5 
+- 训练：(CenterNet) konglingbin@amax:~/project/dota/CenterNet/src$ python main.py ctdet --exp_id acblock_resnet18_dota10_1024 --batch_size 8 --master_batch 4 --lr 1.25e-4 --num_epochs 121 --lr_step ‘90, 120' --gpus 6,7 --arch res_18 --not_rand_crop  --val_intervals 20
 
 
+- 预测：(CenterNet) konglingbin@amax:~/project/dota/CenterNet/src$ python test.py ctdet --exp_id acblock_resnet18_dota10_1024 --load_model /home/konglingbin/project/dota/CenterNet/exp/ctdet/acblock_resnet18_dota10_1024/model_best.pth --K 160  --gpus 3 --arch res_18 --test_scales 0.5,0.75,1,1,25,1.5 
 
-以下是原CenterNet的介绍：
+## 其他说明
+- 数据集可以在datasets/dataset/dota.py中设置路径，采用的是COCO格式，以json形式记录各图像的真值。DOTA_devkit中的DOTA2COCO.py可以将DOTA数据集的真值格式转成COCO格式。关于CenterNet的一些代码解读、如何训练自己的数据集有很多博客说的很详细，可以查阅，比如： https://blog.csdn.net/weixin_41765699/article/details/100118353。
+
+- 推理完成后，检测结果可以按照DOTA数据集的测评格式保存，也可以按照普通的格式保存，参见datasets/dataset/dota.py中的save_results_dota，save_results_plane等函数。（但是如果按照普通格式保存，就不能借助DOTA_devkit中的ResultMerge.py来将小图坐标还原成切割前的大图了，就需要自己开发其他工具了）
+
+
+
+## 以下是原CenterNet的介绍：
 
 # Objects as Points
 Object detection, 3D detection, and pose estimation using center point detection:
